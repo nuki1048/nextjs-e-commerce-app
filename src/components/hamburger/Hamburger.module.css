@@ -1,0 +1,38 @@
+.hamburger {
+  width: 16px;
+  height: 15px;
+  margin-right: 42px;
+}
+.hamburger .line {
+  width: 16px;
+  height: 3px;
+  background-color: var(--pure-white);
+}
+.hamburger .line:nth-child(2) {
+  margin: 3px 0;
+}
+.menu {
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  min-height: 340px;
+  background: var(--pure-white);
+  color: var(--pure-black);
+  padding: 108px 40px 67px 40px;
+  z-index: 1000;
+}
+@media (min-width: 769px) {
+  .hamburger {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+}
+@media (max-width: 576px) {
+  .menu {
+    padding: 80px 24px 35px ;
+  }
+}

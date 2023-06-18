@@ -1,0 +1,93 @@
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style-type: none;
+}
+.link {
+  position: relative;
+  padding: 116px 0 30px ;
+
+  width: 32%;
+  height: 204px;
+
+  border-radius: 8px;
+  background-color: var(--brand-grey);
+  text-align: center;
+}
+.link img {
+  position: absolute;
+  width: 160px;
+  height: 170px;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.link p {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--pure-black);
+}
+.link a {
+  display: block;
+  position: relative;
+  width: 60px;
+  margin: 15px auto 0;
+
+  text-decoration: none;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 22px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--pure-black);
+  mix-blend-mode: normal;
+  opacity: 0.5;
+  transition: 0.5s all;
+}
+.link a:before {
+  position: absolute;
+  content: "";
+  display: block;
+  width: 20px;
+  height: 10px;
+  background: url("../../assets/shared/desktop/icon-arrow-right.svg") center
+    no-repeat;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -10px;
+}
+.link a:hover{
+    color: var(--brand-orange);
+}
+@media (max-width: 768px) {
+  .link{
+    height: 165px;
+    padding: 88px 0 22px;
+  }
+  .link p {
+    font-size: 15px;
+    line-height: 20px;
+  }
+  .link img{
+    width: 145px;
+    height: 140px;
+  }
+}
+
+@media (max-width: 576px) {
+  .links{
+    flex-direction: column;
+    gap: 68px;
+  }
+  .link{
+    width: 327px;
+    height: 165px;
+  }
+}

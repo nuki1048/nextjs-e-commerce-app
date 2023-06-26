@@ -1,0 +1,54 @@
+.counter{
+    position: relative;
+    width: 96px;
+    height: 32px;
+    background: var(--brand-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button{
+    width: 16px;
+    height: 16px;
+
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--pure-black);
+
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: none;
+
+    opacity: 0.25;
+
+    transition: 0.5s all;
+
+
+}
+.button:hover{
+    opacity: 1;
+    color: var(--brand-orange);
+
+}
+
+
+.button-minus{
+    left: 11px;
+
+}
+.button-plus{
+    right: 11px;
+}
+.text{
+    color: var(--pure-black);
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin:  auto;
+}

@@ -21,12 +21,12 @@
   padding: 108px 40px 67px 40px;
   z-index: 1000;
 }
-@media (min-width: 769px) {
+@media (min-width: 992px) {
   .hamburger {
     display: none;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .hamburger {
     display: block;
   }

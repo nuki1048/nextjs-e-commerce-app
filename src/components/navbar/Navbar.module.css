@@ -1,57 +1,67 @@
-.navbar{
-    height: 97px;
-    background-color: var(--pure-black);
-    color: var(--pure-white);
-    padding: 35px 0 37px 0;
+.navbar {
+  width: 100%;
+  height: 97px;
+  position: fixed;
+  top: 0;
+  background-color: var(--pure-black);
+  color: var(--pure-white);
+  padding: 35px 0 37px 0;
+  z-index: 1000;
 }
-.navbar .navbar-content{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.navbar hr {
+  margin: 35px 165px 0;
+  color: var(--pure-white);
+  mix-blend-mode: normal;
+  opacity: 0.2;
 }
-.navbar .logo{
-    width: 143px;
-    height: 25px;
+.navbar .navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.navbar .links{
-    margin: 0 319px 0 197px;
-    width: 427px;
-    display: flex;
-    align-items: center;
-    gap: 33px;
+.navbar .logo {
+  width: 143px;
+  height: 25px;
 }
-.navbar .links a{
-    font-style: normal;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 25px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--pure-white);
-    transition: 0.5s all;
-    text-decoration: none;
+.navbar .links {
+  margin: 0 319px 0 197px;
+  width: 427px;
+  display: flex;
+  align-items: center;
+  gap: 33px;
+}
+.navbar .links a {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 25px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--pure-white);
+  transition: 0.5s all;
+  text-decoration: none;
 }
 
-.navbar ul a:hover{
-    color: var(--brand-orange);
+.navbar ul a:hover {
+  color: var(--brand-orange);
 }
 .navbar .cart {
-    width: 23px;
-    height: 23px;
+  width: 23px;
+  height: 23px;
 }
-@media (max-width: 768px){
-    .navbar {
-        height: 90px;
-    }
-    .navbar .links {
-        display: none;
-    }
-    .navbar .cart{
-        margin-left: auto;
-    }
+@media (max-width: 992px) {
+  .navbar {
+    height: 90px;
+  }
+  .navbar .links {
+    display: none;
+  }
+  .navbar .cart {
+    margin-left: auto;
+  }
 }
-@media (max-width: 576px){
-    .navbar .logo{
-        margin: 0 auto;
-    }
+@media (max-width: 576px) {
+  .navbar .logo {
+    margin: 0 auto;
+  }
 }

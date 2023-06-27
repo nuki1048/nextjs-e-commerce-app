@@ -4,6 +4,7 @@ import store from "@/store/store";
 import { Manrope } from "next/font/google";
 import Layout from "@/components/layout/Layout";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const manrope = Manrope({
   subsets: ["latin"],

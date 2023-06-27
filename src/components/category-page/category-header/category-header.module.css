@@ -1,0 +1,25 @@
+.container {
+  height: 240px;
+  background-color: var(--pure-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container h1 {
+  color: var(--pure-white);
+  text-align: center;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 44px;
+  letter-spacing: 1.429px;
+  text-transform: uppercase;
+}
+@media (max-width: 576px) {
+  .container {
+    height: 95px;
+  }
+  .container h1 {
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+}

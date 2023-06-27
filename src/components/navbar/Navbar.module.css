@@ -50,14 +50,14 @@
   height: 23px;
 }
 @media (max-width: 992px) {
-  .navbar {
-    height: 90px;
-  }
   .navbar .links {
     display: none;
   }
   .navbar .cart {
     margin-left: auto;
+  }
+  .navbar hr {
+    display: none;
   }
 }
 @media (max-width: 576px) {

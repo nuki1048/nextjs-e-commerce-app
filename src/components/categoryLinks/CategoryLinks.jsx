@@ -11,13 +11,13 @@ const CategoryLinks = () => {
       <li className={styles.link}>
         <Image
           src={headphonesImage}
-          alt="Heaphones preview image"
+          alt="Headphones preview image"
           width={"400"}
           height={"400"}
         />
         <p>HEADPHONES</p>
         <Link href={"/category/earphones"}>Shop</Link>
-      </li>{" "}
+      </li>
       <li className={styles.link}>
         <Image
           src={speakersImage}
@@ -27,7 +27,7 @@ const CategoryLinks = () => {
         />
         <p>Speakers</p>
         <Link href={"/category/earphones"}>Shop</Link>
-      </li>{" "}
+      </li>
       <li className={styles.link}>
         <Image
           src={earphonesImage}

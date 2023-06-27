@@ -1,31 +1,43 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
-import Container from "@/components/container/Container";
 import Link from "next/link";
-import cartIcon from "../../assets/shared/desktop/icon-cart.svg";
-import Logo from "../../assets/shared/desktop/logo.svg";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import styles from "./Navbar.module.css";
+
 import Hamburger from "@/components/hamburger/Hamburger";
 import ModalCart from "@/components/modalCart/ModalCart";
-const Navbar = ({ backgroundColor }) => {
+import Container from "@/components/container/Container";
+
+import cartIcon from "../../assets/shared/desktop/icon-cart.svg";
+import logo from "../../assets/shared/desktop/logo.svg";
+
+import styles from "./Navbar.module.css";
+
+const Navbar = () => {
+  const router = useRouter();
   const [modalShow, setModalShow] = useState(false);
+
   const handleClick = () => {
     setModalShow((state) => !state);
   };
+
+  let navbarBackground = "#000";
+
+  if (router.route === "/") {
+    navbarBackground = "transparent";
+  }
 
   return (
     <>
       <nav
         className={styles.navbar}
-        style={{ backgroundColor: backgroundColor }}
+        style={{ backgroundColor: navbarBackground }}
       >
         <Container>
           <div className={styles["navbar-content"]}>
             <Hamburger />
             <Image
-              src={Logo}
+              src={logo}
               alt="Logo"
               width={"143"}
               height={"25"}
@@ -47,7 +59,7 @@ const Navbar = ({ backgroundColor }) => {
             </div>
           </div>
         </Container>
-        {backgroundColor === "transparent" && <hr />}
+        <hr />
       </nav>
       <ModalCart isShow={modalShow} />
     </>

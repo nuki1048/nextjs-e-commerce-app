@@ -4,8 +4,8 @@ import Footer from "@/components/footer/Footer";
 const Layout = ({ children }) => {
   return (
     <Fragment>
-      <Navbar backgroundColor={"transparent"} />
-      {children}
+      <Navbar />
+      <div style={{ paddingTop: "97px" }}>{children}</div>
       <Footer />
     </Fragment>
   );

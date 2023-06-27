@@ -1,0 +1,13 @@
+.grid-container {
+  padding-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 160px;
+}
+@media (max-width: 576px) {
+  .grid-container {
+    padding-top: 60px;
+  }
+}

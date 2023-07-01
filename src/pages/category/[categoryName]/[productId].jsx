@@ -1,13 +1,13 @@
 import React from "react";
 import { useRouter } from "next/router";
+import CategoryItemDetails from "@/components/category-page/category-item-details/category-item-details";
 
 const ProductDetailsPage = () => {
   const router = useRouter();
-  console.log(router.query);
   return (
-    <div>
-      <h1>Product Details Page</h1>
-    </div>
+    <>
+      <CategoryItemDetails />
+    </>
   );
 };
 

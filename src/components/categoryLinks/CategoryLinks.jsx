@@ -5,9 +5,9 @@ import headphonesImage from "../../assets/shared/desktop/image-category-thumbnai
 import speakersImage from "../../assets/shared/desktop/image-category-thumbnail-speakers.png";
 import earphonesImage from "../../assets/shared/desktop/image-category-thumbnail-earphones.png";
 import styles from "./CategoryLinks.module.css";
-const CategoryLinks = () => {
+const CategoryLinks = ({ style }) => {
   return (
-    <ul className={styles.links}>
+    <ul className={styles.links} style={style}>
       <li className={styles.link}>
         <Image
           src={headphonesImage}

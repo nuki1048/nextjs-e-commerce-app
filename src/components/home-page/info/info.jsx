@@ -3,9 +3,9 @@ import styles from "./info.module.css";
 import Container from "@/components/container/Container";
 import previewPhoto from "../../../assets/shared/desktop/image-best-gear.jpg";
 import Image from "next/image";
-const Info = () => {
+const Info = ({ style }) => {
   return (
-    <section className={styles.section}>
+    <section className={styles.section} style={{ style }}>
       <Container>
         <div className={styles.wrapper}>
           <div>

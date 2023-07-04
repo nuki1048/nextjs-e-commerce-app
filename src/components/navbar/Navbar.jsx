@@ -36,13 +36,15 @@ const Navbar = () => {
         <Container>
           <div className={styles["navbar-content"]}>
             <Hamburger />
-            <Image
-              src={logo}
-              alt="Logo"
-              width={"143"}
-              height={"25"}
-              className={styles.logo}
-            />
+            <Link href={"/"}>
+              <Image
+                src={logo}
+                alt="Logo"
+                width={"143"}
+                height={"25"}
+                className={styles.logo}
+              />
+            </Link>
             <ul className={styles.links}>
               <Link href="/">Home</Link>
               <Link href={"/category/headphones"}>HEADPHONES</Link>

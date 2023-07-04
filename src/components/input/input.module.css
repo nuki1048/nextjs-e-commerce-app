@@ -1,0 +1,82 @@
+.label,
+.error-label {
+  width: 100%;
+  height: 81px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 200px;
+}
+
+.label input,
+.error-label input {
+  margin-top: 9px;
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #cfcfcf;
+  background: var(--pure-white);
+  padding: 18px 24px;
+
+  color: var(--pure-black);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.25px;
+}
+.label input::placeholder,
+.error-label input::placeholder {
+  color: var(--pure-black);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+.label input:focus-visible,
+.error-label input:focus-visible {
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid var(--brand-orange);
+  background: #fff;
+  caret-color: var(--brand-orange);
+}
+.error {
+  color: #cd2c2c;
+  text-align: right;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: -0.214px;
+  margin-left: auto;
+}
+
+.error-label input {
+  border-radius: 8px;
+  border: 2px solid #cd2c2c;
+  background: #fff;
+}
+.label span,
+.error-label span {
+  color: var(--pure-black);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.214px;
+}
+
+.error-label span {
+  color: #cd2c2c;
+}

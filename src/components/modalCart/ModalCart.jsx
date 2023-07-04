@@ -5,7 +5,7 @@ import ModalItem from "@/components/modalCart/ModalItem";
 const ModalCart = ({ isShow, setShow }) => {
   const [counter, setCounter] = useState(0);
   return (
-    <Modal classNames={styles} isShow={isShow}>
+    <Modal isShow={isShow}>
       <div className={styles.content}>
         <div className={styles["cart-info"]}>
           <h3 className={styles.counter}>cart (3)</h3>

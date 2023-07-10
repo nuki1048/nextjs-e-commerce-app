@@ -7,9 +7,9 @@ const CategoryGrid = ({ data }) => {
     <Container>
       {/* TODO: Change to map of data */}
       <div className={styles["grid-container"]}>
-        <CategoryItem index={1} />
-        <CategoryItem index={2} />
-        <CategoryItem index={3} />
+        {data?.map((item, index) => (
+          <CategoryItem count={index + 1} key={item._id} data={item} />
+        ))}
       </div>
     </Container>
   );

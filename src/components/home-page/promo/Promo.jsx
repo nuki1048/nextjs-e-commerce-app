@@ -1,34 +1,31 @@
 import React from "react";
 import styles from "./Promo.module.css";
 import Image from "next/image";
-import desktopBG from "../../../assets/home/desktop/image-hero.jpg";
-import tabletBG from "../../../assets/home/tablet/image-header.jpg";
-import mobileBG from "../../../assets/home/mobile/image-header.jpg";
 import Link from "next/link";
 import Container from "@/components/container/Container";
 const Promo = () => {
   return (
     <div className={styles.promo}>
       <Image
-        src={desktopBG}
+        src="/assets/home/desktop/image-hero.jpg"
         alt="Background image"
-        width="3000"
-        height="3000"
+        width={3000}
+        height={3000}
         className={styles["desktop-image"]}
       />
       <Image
-        src={tabletBG}
+        src="/assets/home/tablet/image-header.jpg"
         alt="Background image"
         className={styles["tablet-image"]}
-        width="3000"
-        height="3000"
+        width={3000}
+        height={3000}
       />
       <Image
-        src={mobileBG}
+        src="/assets/home/mobile/image-header.jpg"
         alt="Background image"
         className={styles["mobile-image"]}
-        width="3000"
-        height="3000"
+        width={3000}
+        height={3000}
       />
       <div className={styles["promo-content"]}>
         <Container>

@@ -8,8 +8,6 @@ import { useState } from "react";
 import CategoryItemInfo from "./category-item-info";
 import CategoryItemGallery from "./category-item-gallery";
 
-import photo3 from "../../../assets/product-zx9-speaker/desktop/image-category-page-preview.jpg";
-
 import styles from "./category-item-details.module.css";
 import CategoryItemOffers from "./category-item-offers";
 import CategoryItemBase from "./category-item-base";

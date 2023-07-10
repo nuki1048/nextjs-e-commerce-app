@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./grid-item.module.css";
 import Image from "next/image";
-import speakerPreview from "../../../assets/home/desktop/image-speaker-zx9.png";
 import Container from "@/components/container/Container";
 const GridItems = () => {
   return (
@@ -9,7 +8,7 @@ const GridItems = () => {
       <section className={styles.grid}>
         <div className={styles["speaker-zx9"]}>
           <Image
-            src={speakerPreview}
+            src="/assets/home/desktop/image-speaker-zx9.png"
             alt="speaker preview photo"
             width={1000}
             height={700}

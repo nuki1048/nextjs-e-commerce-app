@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./info.module.css";
 import Container from "@/components/container/Container";
-import previewPhoto from "../../../assets/shared/desktop/image-best-gear.jpg";
 import Image from "next/image";
 const Info = ({ style }) => {
   return (
@@ -22,7 +21,12 @@ const Info = ({ style }) => {
               audio equipment.
             </p>
           </div>
-          <Image src={previewPhoto} alt="image hero" width={500} height={500} />
+          <Image
+            src="/assets/shared/desktop/image-best-gear.jpg"
+            alt="image hero"
+            width={500}
+            height={500}
+          />
         </div>
       </Container>
     </section>

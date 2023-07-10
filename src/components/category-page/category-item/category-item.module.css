@@ -71,7 +71,7 @@
   }
   .content {
     width: initial;
-    height: 350px;
+    min-height: 400px;
   }
 }
 @media (max-width: 992px) {

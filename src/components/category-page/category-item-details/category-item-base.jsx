@@ -1,12 +1,10 @@
-import React from "react";
+import { useState } from "react";
+
 import Container from "@/components/container/Container";
 import Link from "next/link";
 import Image from "next/image";
 import InputNumber from "@/components/inputNumber/InputNumber";
 import Button from "@/components/button/Button";
-import { useState } from "react";
-
-import photo3 from "../../../assets/product-zx9-speaker/desktop/image-category-page-preview.jpg";
 
 import styles from "./category-item-base.module.css";
 
@@ -23,7 +21,12 @@ const CategoryItemBase = () => {
         </Link>
         <div className={styles.content}>
           <div className={styles.image}>
-            <Image src={photo3} alt="image" width={300} height={300} />
+            <Image
+              src="/assets/product-zx9-speaker/desktop/image-category-page-preview.jpg"
+              alt="image"
+              width={300}
+              height={300}
+            />
           </div>
           <div className={styles.info}>
             <span>New product</span>

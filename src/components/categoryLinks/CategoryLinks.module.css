@@ -6,7 +6,7 @@
 }
 .link {
   position: relative;
-  padding: 116px 0 30px ;
+  padding: 116px 0 30px;
 
   width: 32%;
   height: 204px;
@@ -57,17 +57,17 @@
   display: block;
   width: 20px;
   height: 10px;
-  background: url("../../assets/shared/desktop/icon-arrow-right.svg") center
+  background: url("/assets/shared/desktop/icon-arrow-right.svg") center
     no-repeat;
   top: 50%;
   transform: translateY(-50%);
   right: -10px;
 }
-.link a:hover{
-    color: var(--brand-orange);
+.link a:hover {
+  color: var(--brand-orange);
 }
 @media (max-width: 768px) {
-  .link{
+  .link {
     height: 165px;
     padding: 88px 0 22px;
   }
@@ -75,18 +75,18 @@
     font-size: 15px;
     line-height: 20px;
   }
-  .link img{
+  .link img {
     width: 145px;
     height: 140px;
   }
 }
 
 @media (max-width: 576px) {
-  .links{
+  .links {
     flex-direction: column;
     gap: 68px;
   }
-  .link{
+  .link {
     width: 327px;
     height: 165px;
   }

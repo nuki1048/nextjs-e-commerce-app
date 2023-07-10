@@ -2,8 +2,6 @@ import React from "react";
 import Modal from "../modal/Modal";
 import styles from "./thanksful-modal.module.css";
 
-import Photo from "../../assets/checkout/icon-order-confirmation.svg";
-import photoCartItem from "../../assets/cart/image-xx59-headphones.jpg";
 import Image from "next/image";
 import Button from "../button/Button";
 
@@ -12,7 +10,7 @@ const ThanksfulModal = ({ isShow }) => {
     <Modal isShow={true}>
       <div className={styles.content}>
         <Image
-          src={Photo}
+          src="/assets/checkout/icon-order-confirmation.svg"
           alt="order confirmation icon"
           width={64}
           height={64}
@@ -25,7 +23,7 @@ const ThanksfulModal = ({ isShow }) => {
             <div className={styles.item}>
               <div className={styles.image}>
                 <Image
-                  src={photoCartItem}
+                  src="/assets/cart/image-xx59-headphones.jpg"
                   alt="cart item photo"
                   width={50}
                   height={50}

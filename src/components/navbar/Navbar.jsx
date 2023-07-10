@@ -8,9 +8,6 @@ import Hamburger from "@/components/hamburger/Hamburger";
 import ModalCart from "@/components/modalCart/ModalCart";
 import Container from "@/components/container/Container";
 
-import cartIcon from "../../assets/shared/desktop/icon-cart.svg";
-import logo from "../../assets/shared/desktop/logo.svg";
-
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
@@ -38,10 +35,10 @@ const Navbar = () => {
             <Hamburger />
             <Link href={"/"}>
               <Image
-                src={logo}
+                src="/assets/shared/desktop/logo.svg"
                 alt="Logo"
-                width={"143"}
-                height={"25"}
+                width={143}
+                height={25}
                 className={styles.logo}
               />
             </Link>
@@ -53,10 +50,10 @@ const Navbar = () => {
             </ul>
             <div onClick={handleClick} className={styles.cart}>
               <Image
-                src={cartIcon}
+                src="/assets/shared/desktop/icon-cart.svg"
                 alt="Cart Icon"
-                width={"23"}
-                height={"20"}
+                width={23}
+                height={20}
               />
             </div>
           </div>

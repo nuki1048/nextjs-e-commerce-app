@@ -12,7 +12,6 @@ import Button from "../button/Button";
 import Link from "next/link";
 import Image from "next/image";
 
-import icon from "../../assets/checkout/icon-cash-on-delivery.svg";
 import ThanksfulModal from "../thanksful-modal/thanksful-modal";
 
 const CheckoutForm = ({}) => {
@@ -135,7 +134,7 @@ const CheckoutForm = ({}) => {
               {watch("paymentMethod") === "Cash on Delivery" && (
                 <div className={styles.delivery}>
                   <Image
-                    src={icon}
+                    src="assets/checkout/icon-cash-on-delivery.svg"
                     alt="icon delivery"
                     width={30}
                     height={30}
@@ -179,7 +178,7 @@ const CheckoutForm = ({}) => {
           </aside>
         </form>
       </Container>
-      <ThanksfulModal />
+      {/* <ThanksfulModal /> */}
     </section>
   );
 };

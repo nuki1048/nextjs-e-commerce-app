@@ -13,8 +13,8 @@
   width: 100%;
   height: 100%;
   padding: 130px 95px 0 117px;
-  background: url("../../../assets/home/desktop/pattern-circles.svg") left top
-    no-repeat var(--brand-orange);
+  background: url("/assets/home/desktop/pattern-circles.svg") left top no-repeat
+    var(--brand-orange);
   border-radius: 8px;
 
   display: flex;
@@ -68,8 +68,7 @@
   grid-column: 1/3;
   width: 100%;
   height: 100%;
-  background: url("../../../assets/home/desktop/image-speaker-zx7.jpg") center
-    no-repeat;
+  background: url("/assets/home/desktop/image-speaker-zx7.jpg") center no-repeat;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -91,7 +90,7 @@
 
 .earphones {
   grid-column: 1/2;
-  background: url("../../../assets/home/desktop/image-earphones-yx1.jpg") center
+  background: url("/assets/home/desktop/image-earphones-yx1.jpg") center
     no-repeat;
 
   border-radius: 8px;
@@ -134,8 +133,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: url("../../../assets/home/desktop/pattern-circles.svg") bottom
-      no-repeat var(--brand-orange);
+    background: url("/assets/home/desktop/pattern-circles.svg") bottom no-repeat
+      var(--brand-orange);
     gap: 64px;
   }
   .speaker-zx9 img {
@@ -148,7 +147,7 @@
   }
 
   .speaker-zx7 {
-    background: url("../../../assets/home/tablet/image-speaker-zx7.jpg") center
+    background: url("/assets/home/tablet/image-speaker-zx7.jpg") center
       no-repeat;
     padding: 96px 0 0 60px;
   }
@@ -189,14 +188,14 @@
     grid-column: 1/2;
     background-position: 50%;
     background-size: cover;
-    background-image: url("../../../assets/home/tablet/image-speaker-zx7.jpg");
+    background-image: url("/assets/home/tablet/image-speaker-zx7.jpg");
     padding: 101px 25px 0 62px;
   }
 
   .earphones {
     grid-row: 3/4;
-    background: url("../../../assets/home/tablet/image-earphones-yx1.jpg")
-      center / cover no-repeat;
+    background: url("/assets/home/tablet/image-earphones-yx1.jpg") center /
+      cover no-repeat;
   }
   .earphones-info {
     grid-column: 1/2;
@@ -223,11 +222,11 @@
   }
   .speaker-zx7 {
     padding: 92px 20px 0 22px;
-    background-image: url("../../../assets/home/mobile/image-speaker-zx7.jpg");
+    background-image: url("/assets/home/mobile/image-speaker-zx7.jpg");
   }
   .earphones {
-    background: url("../../../assets/home/mobile/image-earphones-yx1.jpg")
-      center / cover no-repeat;
+    background: url("/assets/home/mobile/image-earphones-yx1.jpg") center /
+      cover no-repeat;
   }
   .earphones-info {
     padding: 21px 56px 40px 24px;

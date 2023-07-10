@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./radio.module.css";
-import { set } from "react-hook-form";
 const Radio = ({ register, error, label, placeholder, value, borderShow }) => {
   // const [borderShow, setBorderShow] = useState(false);
   const labelRef = useRef();

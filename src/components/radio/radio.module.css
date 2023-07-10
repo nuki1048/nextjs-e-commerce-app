@@ -3,7 +3,7 @@
   height: 56px;
   border-radius: 8px;
   border: 1px solid #cfcfcf;
-  background: #fff;
+  background: var(--pure-white);
 
   padding: 18px 16px;
   display: flex;

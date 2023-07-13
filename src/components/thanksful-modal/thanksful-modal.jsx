@@ -1,13 +1,19 @@
 import React from "react";
 import Modal from "../modal/Modal";
-import styles from "./thanksful-modal.module.css";
 
 import Image from "next/image";
 import Button from "../button/Button";
 
-const ThanksfulModal = ({ isShow }) => {
+import styles from "./thanksful-modal.module.css";
+import { useSelector } from "react-redux";
+
+const ThanksfulModal = ({ isShow, total }) => {
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const slicedName = cartItems[0]?.name?.slice(0, 10);
+
   return (
-    <Modal isShow={true}>
+    <Modal isShow={isShow}>
       <div className={styles.content}>
         <Image
           src="/assets/checkout/icon-order-confirmation.svg"
@@ -23,24 +29,26 @@ const ThanksfulModal = ({ isShow }) => {
             <div className={styles.item}>
               <div className={styles.image}>
                 <Image
-                  src="/assets/cart/image-xx59-headphones.jpg"
-                  alt="cart item photo"
+                  src={cartItems[0]?.image}
+                  alt="Cart Item Photo"
                   width={50}
                   height={50}
                 />
               </div>
               <div>
-                <span>XX99 MK II</span>
-                <p className={styles.price}>$ 2,999</p>
+                <span>{cartItems && slicedName}</span>
+                <p className={styles.price}>$ {cartItems[0]?.price}</p>
               </div>
-              <p className={styles.count}>x1</p>
+              <p className={styles.count}>x{cartItems[0]?.count}</p>
             </div>
             <hr />
-            <span className={styles.more}>and 2 other item(s)</span>
+            <span className={styles.more}>
+              and {cartItems?.length - 1} other item(s)
+            </span>
           </div>
           <div className={styles["black-section"]}>
             <h3>GRAND TOTAL</h3>
-            <span>$ 5,446</span>
+            <span>$ {total}</span>
           </div>
         </div>
 

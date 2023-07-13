@@ -13,7 +13,7 @@ const CategoryLinks = ({ style }) => {
           height={400}
         />
         <p>HEADPHONES</p>
-        <Link href={"/category/earphones"}>Shop</Link>
+        <Link href={"/category/headphones"}>Shop</Link>
       </li>
       <li className={styles.link}>
         <Image
@@ -23,7 +23,7 @@ const CategoryLinks = ({ style }) => {
           height={400}
         />
         <p>Speakers</p>
-        <Link href={"/category/earphones"}>Shop</Link>
+        <Link href={"/category/speakers"}>Shop</Link>
       </li>
       <li className={styles.link}>
         <Image

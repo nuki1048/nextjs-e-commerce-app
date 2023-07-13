@@ -12,6 +12,10 @@
   text-decoration: none;
 
   opacity: 0.5;
+
+  border: none;
+  text-align: left;
+  background: transparent;
 }
 
 .link:hover {

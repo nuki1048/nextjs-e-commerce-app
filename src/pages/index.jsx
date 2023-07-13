@@ -7,24 +7,10 @@ import { useEffect } from "react";
 import { pushNewOrder, startBot } from "@/lib/telegram";
 import Cookies from "js-cookie";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addItemToCart,
-  deleteItemFromCart,
-} from "@/lib/redux/slices/cartSlice";
-import { checkEnvironment } from "@/lib/url";
+import { clearCart, updateCart } from "@/lib/redux/slices/cartSlice";
+import { wrapper } from "@/lib/redux/store";
 
 export default function Home({ cart }) {
-  // Cookies.set("home", [{ key: "1" }, { key: "2" }, { key: "3" }], {
-  //   expires: 1 / 24,
-  // });
-  // const dispatch = useDispatch();
-  // const cartItems = useSelector((state) => state.cart.cartItems);
-  // console.log(cartItems);
-  // useEffect(() => {
-  //   fetch(checkEnvironment().concat(`/api/products`))
-  //     .then((res) => res.json())
-  //     .then((res) => console.log(res));
-  // }, []);
   return (
     <main>
       <Promo />
@@ -38,12 +24,18 @@ export default function Home({ cart }) {
     </main>
   );
 }
-// export async function getServerSideProps({ req, res }) {
-//   const cartCookies = req.cookies.cart;
-
-//   return {
-//     props: {
-//       cart: cartCookies || [],
-//     },
-//   };
-// }
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    ({ req, res, ...etc }) => {
+      const cookies = req.cookies.cart;
+      if (cookies) {
+        const cart = JSON.parse(cookies);
+        if (cart.length > 0) {
+          store.dispatch(updateCart(cart));
+        }
+      }
+      return {
+        props: {},
+      };
+    }
+);

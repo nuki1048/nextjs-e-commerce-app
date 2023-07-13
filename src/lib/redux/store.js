@@ -1,21 +1,32 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import cart from "./slices/cartSlice";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
-const stringMiddleware = () => (next) => (action) => {
-  if (typeof action === "string") {
-    return next({ type: action });
-  }
 
-  return next(action);
-};
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 const combinedReducer = combineReducers({
   cart,
 });
 
-export const store = configureStore({
-  reducer: combinedReducer,
-  devTools: process.env.NODE_ENV !== "production",
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(stringMiddleware),
+const reducer = (state, action) => {
+  if (action.type === HYDRATE) {
+    const nextState = {
+      ...state, // use previous state
+      ...action.payload, // apply delta from hydration
+    };
+    return nextState;
+  } else {
+    return combinedReducer(state, action);
+  }
+};
+
+const makeStore = () =>
+  configureStore({
+    reducer,
+    devTools: isDevelopment,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  });
+
+export const wrapper = createWrapper(makeStore, {
+  debug: isDevelopment,
 });

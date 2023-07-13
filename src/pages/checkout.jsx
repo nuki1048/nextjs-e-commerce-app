@@ -4,33 +4,42 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import CheckoutForm from "@/components/checkout-page/checkout-form";
+import { wrapper } from "@/lib/redux/store";
+import { updateCart } from "@/lib/redux/slices/cartSlice";
 
 const CheckoutPage = () => {
-  const schema = yup
-    .object({
-      example: yup.string().email().required(),
-      age: yup.number().positive().integer().required(),
-    })
-    .required();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = (data) => {
-    console.log(data);
-  };
-
   return (
-    /* "handleSubmit" will validate your inputs before invoking "onSubmit" */
-    <>
+    <div>
       <CheckoutForm />
-    </>
+    </div>
   );
 };
 
 export default CheckoutPage;
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) =>
+    ({ req, res, ...etc }) => {
+      const cookies = req.cookies.cart;
+
+      if (!cookies) {
+        return {
+          notFound: true,
+        };
+      }
+
+      const cart = JSON.parse(cookies);
+
+      if (cart.length === 0) {
+        return {
+          notFound: true,
+        };
+      }
+
+      store.dispatch(updateCart(cart));
+
+      return {
+        props: {},
+      };
+    }
+);

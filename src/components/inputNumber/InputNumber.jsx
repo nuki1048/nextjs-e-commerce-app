@@ -1,18 +1,18 @@
 import React from "react";
 import styles from "./InputNumber.module.css";
-const InputNumber = ({ counter, setCounter, width, height }) => {
+const InputNumber = ({ counter, addValue, removeValue, width, height }) => {
   return (
     <div className={styles.counter} style={{ width, height }}>
       <button
         className={`${styles.button} ${styles["button-minus"]}`}
-        onClick={() => setCounter((state) => state - 1)}
+        onClick={removeValue}
       >
         -
       </button>
       <span className={styles.text}>{counter}</span>
       <button
         className={`${styles.button} ${styles["button-plus"]}`}
-        onClick={() => setCounter((state) => state + 1)}
+        onClick={addValue}
       >
         +
       </button>

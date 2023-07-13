@@ -38,6 +38,12 @@ export async function getStaticProps(context) {
   }
 
   const data = await getDocuments(client, { category: query }, "products");
+  if (!data || data.length === 0) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: { products: JSON.parse(JSON.stringify(data)) },
   };

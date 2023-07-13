@@ -5,7 +5,7 @@ import Button from "@/components/button/Button";
 
 import Container from "@/components/container/Container";
 
-const CategoryItemOffers = () => {
+const CategoryItemOffers = ({ offers }) => {
   const buttonStyle = { marginTop: "32px", width: "160px", height: "48px" };
 
   return (
@@ -13,36 +13,32 @@ const CategoryItemOffers = () => {
       <div className={styles.offers}>
         <h2>you may also like</h2>
         <ul>
-          <li>
-            <Image
-              src="/assets/shared/desktop/image-xx99-mark-two-headphones.jpg"
-              alt="image"
-              width={300}
-              height={300}
-            />
-            <h3>ZX7 SPEAKER</h3>
-            <Button style={buttonStyle}>See Product</Button>
-          </li>
-          <li>
-            <Image
-              src="/assets/shared/desktop/image-zx9-speaker.jpg"
-              alt="image"
-              width={300}
-              height={300}
-            />
-            <h3>XX99 MARK I</h3>
-            <Button style={buttonStyle}>See Product</Button>
-          </li>
-          <li>
-            <Image
-              src="/assets/shared/desktop/image-xx59-headphones.jpg"
-              alt="image"
-              width={300}
-              height={300}
-            />
-            <h3>XX59</h3>
-            <Button style={buttonStyle}>See Product</Button>
-          </li>
+          {offers.map((offer) => {
+            const categoryOffer = offer.slug.split("-");
+            let href = `/category/${categoryOffer[categoryOffer.length - 1]}/${
+              offer.slug
+            }`;
+            if (categoryOffer[categoryOffer.length - 1] === "speaker") {
+              href = `/category/${categoryOffer[categoryOffer.length - 1]}s/${
+                offer.slug
+              }`;
+            }
+
+            return (
+              <li key={offer.slug}>
+                <Image
+                  src={offer.image.desktop}
+                  alt="Offers Image"
+                  width={300}
+                  height={300}
+                />
+                <h3>{offer.name}</h3>
+                <Button style={buttonStyle} href={href}>
+                  See Product
+                </Button>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </Container>

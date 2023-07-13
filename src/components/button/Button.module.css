@@ -21,13 +21,21 @@
 .button:hover {
   background: var(--brand-light-orange);
 }
-.dark {
-  width: 160px;
+.black-outline {
   background: transparent;
   border: 1px solid var(--pure-black);
   color: var(--pure-black);
 }
-.button-dark:hover {
+.black-outline:hover {
   background: var(--pure-black);
   color: var(--pure-white);
+}
+.black {
+  background: var(--pure-black);
+
+  color: var(--pure-white);
+  border: none;
+}
+.black:hover {
+  background: #4c4c4c;
 }

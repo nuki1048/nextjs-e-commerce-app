@@ -3,28 +3,19 @@ import styles from "./category-item-gallery.module.css";
 import Image from "next/image";
 
 import Container from "@/components/container/Container";
-const CategoryItemGrid = () => {
+const CategoryItemGrid = ({ gallery }) => {
   return (
     <Container>
       <div className={styles.grid}>
-        <Image
-          src="/assets/product-zx9-speaker/desktop/image-gallery-1.jpg"
-          alt="image"
-          width={700}
-          height={600}
-        />
-        <Image
-          src="/assets/product-zx9-speaker/desktop/image-gallery-2.jpg"
-          alt="image"
-          width={1000}
-          height={1000}
-        />
-        <Image
-          src="/assets/product-zx9-speaker/desktop/image-gallery-3.jpg"
-          alt="image"
-          width={1000}
-          height={1000}
-        />
+        {Object.keys(gallery).map((photo) => (
+          <Image
+            key={gallery[photo].desktop}
+            src={gallery[photo].desktop}
+            alt="Gallery image"
+            width={700}
+            height={600}
+          />
+        ))}
       </div>
     </Container>
   );

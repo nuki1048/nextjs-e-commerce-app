@@ -22,6 +22,11 @@
 .navbar .logo {
   width: 143px;
   height: 25px;
+
+  transition: 0.5s all;
+}
+.navbar .logo:hover {
+  filter: drop-shadow(10px 10px 5px var(--brand-orange));
 }
 .navbar .links {
   margin: 0 319px 0 197px;
@@ -48,6 +53,14 @@
 .navbar .cart {
   width: 23px;
   height: 23px;
+}
+
+.navbar .cart svg path {
+  transition: 0.5s all;
+}
+
+.navbar .cart:hover > svg path {
+  fill: var(--brand-orange);
 }
 @media (max-width: 992px) {
   .navbar .links {

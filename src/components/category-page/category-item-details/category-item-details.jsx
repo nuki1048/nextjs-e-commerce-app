@@ -1,10 +1,5 @@
 import React from "react";
 import Container from "@/components/container/Container";
-import Link from "next/link";
-import Image from "next/image";
-import InputNumber from "@/components/inputNumber/InputNumber";
-import Button from "@/components/button/Button";
-import { useState } from "react";
 import CategoryItemInfo from "./category-item-info";
 import CategoryItemGallery from "./category-item-gallery";
 
@@ -14,17 +9,38 @@ import CategoryItemBase from "./category-item-base";
 import Info from "@/components/home-page/info/info";
 import CategoryLinks from "@/components/categoryLinks/CategoryLinks";
 
-const CategoryItemDetails = () => {
-  const [counter, setCounter] = useState(0);
+const CategoryItemDetails = ({ data, onAddToCart, onRemoveFromCart }) => {
   const titleText = "ZX9 SPEAKER";
   const arr = titleText.split(" ");
+  const {
+    name,
+    description,
+    category,
+    price,
+    features,
+    includes,
+    others,
+    gallery,
+    image,
+    _id,
+  } = data;
 
   return (
     <div className={styles.item}>
-      <CategoryItemBase />
-      <CategoryItemInfo />
-      <CategoryItemGallery />
-      <CategoryItemOffers />
+      <CategoryItemBase
+        name={name}
+        category={category}
+        image={image}
+        newProduct={data.new}
+        description={description}
+        price={price}
+        onAddToCart={onAddToCart}
+        onRemoveFromCart={onRemoveFromCart}
+        id={_id}
+      />
+      <CategoryItemInfo features={features} includes={includes} />
+      <CategoryItemGallery gallery={gallery} />
+      <CategoryItemOffers offers={others} />
       <Container>
         <CategoryLinks style={{ marginTop: "244px" }} />
       </Container>

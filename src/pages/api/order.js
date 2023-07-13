@@ -1,5 +1,10 @@
+import ThanksfulModal from "@/components/thanksful-modal/thanksful-modal";
 import { connectToDatabase } from "@/lib/db";
+import { sendMessage } from "@/lib/email";
 import { orderNumsGenerator } from "@/lib/order";
+import { deleteCookie } from "cookies-next";
+import { render } from "@react-email/render";
+import EmailMessage from "@/components/emailMessage/emailMessage";
 
 async function handler(req, res) {
   if (req.method !== "POST") {
@@ -23,7 +28,7 @@ async function handler(req, res) {
   if (
     !billingDetails ||
     !billingDetails.name ||
-    !billingDetails.address ||
+    !billingDetails.telephone ||
     !billingDetails.email
   ) {
     return res.status(400).send("We can't apply order without billing details");
@@ -71,6 +76,16 @@ async function handler(req, res) {
     client.close();
     return res.status(400).send("We can't apply order");
   }
+
+  deleteCookie("cart", { req, res });
+
+  await sendMessage({
+    from: '"Audiophile 👻" <audiophile@gmail.com>',
+    to: billingDetails.email,
+    subject: "Order ✔",
+    text: "Order Details",
+    html: render(EmailMessage({ cartItems: order.products, total: "5000" })),
+  });
 
   return res
     .status(201)

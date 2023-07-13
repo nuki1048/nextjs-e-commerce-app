@@ -1,6 +1,5 @@
 import { HYDRATE } from "next-redux-wrapper";
 
-const { default: CartItem } = require("@/components/checkout-page/cart-item");
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
@@ -8,10 +7,14 @@ const initialState = {
   cartTotal: 0,
   cartTax: 10,
 };
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    getCart(state, action) {
+      return state;
+    },
     updateCartTotal(state, action) {
       state.cartTotal = action.payload;
     },
@@ -42,12 +45,25 @@ const cartSlice = createSlice({
       if (cartItem && cartItem.count > 1) {
         const index = state.cartItems.indexOf(cartItem);
         state.cartItems[index].count--;
-      } else if (cartItem.count <= 1) {
+      } else if (cartItem && cartItem?.count === 1) {
         state.cartItems = state.cartItems.filter(
           (state) => state.id !== action.payload.id
         );
+      } else {
+        return state.cartItems;
       }
     },
+    updateCart(state, action) {
+      state.cartItems = [...action.payload];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action) => {
+      return {
+        ...state,
+        ...action.payload.cart,
+      };
+    });
   },
 });
 
@@ -59,6 +75,8 @@ export const {
   clearCart,
   updateCartTax,
   updateCartTotal,
+  updateCart,
+  getCart,
 } = actions;
 // cartItem = {
 //     id: 2,

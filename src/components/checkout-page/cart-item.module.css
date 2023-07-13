@@ -18,6 +18,12 @@
   justify-content: space-between;
   text-align: left;
 }
+a.link {
+  text-decoration: none;
+}
+a.link:hover {
+  text-decoration: underline;
+}
 .name {
   color: var(--pure-black);
   font-size: 15px;

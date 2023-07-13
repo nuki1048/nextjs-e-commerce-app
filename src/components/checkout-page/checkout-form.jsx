@@ -9,38 +9,87 @@ import * as yup from "yup";
 import Radio from "../radio/radio";
 import CartItem from "./cart-item";
 import Button from "../button/Button";
-import Link from "next/link";
 import Image from "next/image";
 
 import ThanksfulModal from "../thanksful-modal/thanksful-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useState } from "react";
+import { clearCart } from "@/lib/redux/slices/cartSlice";
+import Cookies from "js-cookie";
 
 const CheckoutForm = ({}) => {
-  //   const schema = yup
-  //     .object({
-  //       example: yup.string().email().required(),
-  //       age: yup.number().positive().integer().required(),
-  //     })
-  //     .required();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
+  const totalWitoutTaxesAndDelivery = cartItems.reduce(
+    (total, item) => total + item.price * item.count,
+    0
+  );
+  const taxes = Math.round((totalWitoutTaxesAndDelivery / 100) * 7.66);
+  const totalWithTax = Math.round(totalWitoutTaxesAndDelivery + taxes);
+  const delivery = 50;
+  const totalWithTaxAndDelivery = totalWithTax + delivery;
+  const schema = yup
+    .object({
+      email: yup.string().email().required(),
+      name: yup.string().min(1).required(),
+      telephone: yup.number().min(5).required(),
+      address: yup.string().required(),
+      zipCode: yup.number().min(5).required(),
+      country: yup.string().required(),
+      city: yup.string().required(),
+    })
+    .required();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ resolver: yupResolver(schema) });
 
-  //   {
-  //     resolver: yupResolver(schema),
-  //   }
+  const [showModal, setModalShow] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    const order = {
+      billingDetails: {
+        name: data.name,
+        telephone: data.telephone,
+        email: data.email,
+      },
+      deliveryInfo: {
+        address: data.address,
+        zipCode: data.zipCode,
+        country: data.country,
+        city: data.city,
+      },
+      paymentMethod: data.paymentMethod,
+      summary: totalWithTaxAndDelivery,
+      products: {
+        ...cartItems,
+      },
+    };
+
+    await fetch("../api/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(order),
+    }).then((res) => {
+      setModalShow(true);
+      setTimeout(() => {
+        setModalShow(false);
+        dispatch(clearCart());
+        router.push("/");
+      }, 6000);
+    });
   };
   return (
     <section className={styles.section}>
       <Container>
-        <Link href="/" className={styles.link}>
+        <button onClick={() => router.back()} className={styles.link}>
           Go back
-        </Link>
+        </button>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.main}>
             <h2>Checkout</h2>
@@ -152,33 +201,37 @@ const CheckoutForm = ({}) => {
           <aside className={styles.aside}>
             <h2>Summary</h2>
             <ul className={styles["cart-items"]}>
-              <CartItem />
-              <CartItem />
-              <CartItem />
+              {cartItems.map((cartItem) => (
+                <CartItem key={cartItem.id} data={cartItem} />
+              ))}
             </ul>
             <div className={styles.info}>
               <div className={styles["info-item"]}>
                 <span className={styles.name}>TOTAL</span>
-                <span className={styles.price}>$ 5,396</span>
+                <span className={styles.price}>
+                  $ {totalWitoutTaxesAndDelivery}
+                </span>
               </div>
               <div className={styles["info-item"]}>
                 <span className={styles.name}>SHIPPING</span>
-                <span className={styles.price}>$ 50</span>
+                <span className={styles.price}>$ {delivery}</span>
               </div>
               <div className={styles["info-item"]}>
                 <span className={styles.name}>VAT (INCLUDED)</span>
-                <span className={styles.price}>$ 1,079</span>
+                <span className={styles.price}>$ {taxes}</span>
               </div>
               <div className={styles["info-item-total"]}>
                 <span className={styles.name}>GRAND TOTAL</span>
-                <span className={styles.price}>$ 1,079</span>
+                <span className={styles.price}>
+                  $ {totalWithTaxAndDelivery}
+                </span>
               </div>
             </div>
             <Button style={{ marginTop: "32px" }}>CONTINUE & PAY</Button>
           </aside>
         </form>
       </Container>
-      {/* <ThanksfulModal /> */}
+      <ThanksfulModal isShow={showModal} total={totalWithTaxAndDelivery} />
     </section>
   );
 };

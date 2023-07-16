@@ -4,9 +4,8 @@ const nextConfig = function () {
     env: {
       MONGODB_PASSWORD: "JJLAtzzZqtsZZpAu",
       MONGODB_USERNAME: "nik456618",
-      MONGODB_CLUSTERNAME: "cluster0",
-      TELEGRAM_TOKEN: "6394747876:AAGtVL6tlW9dlmA6STg96NWxCEgvjao5u8Y",
-      TELEGRAM_CHAT_ID: "473696061",
+      EMAIL_PROVIDER: "nik456618@gmail.com",
+      EMAIL_PROVIDER_PASSWORD: "zxhpscjnuatsthpu",
     },
   };
 };

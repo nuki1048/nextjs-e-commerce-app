@@ -153,6 +153,9 @@
   align-items: center;
   justify-content: center;
   gap: 24px;
+
+  overflow: auto;
+  max-height: 240px;
 }
 .aside .info {
   margin-top: 32px;

@@ -11,11 +11,5 @@ const transport = nodemailer.createTransport({
 });
 
 export async function sendMessage(emailDetails) {
-  transport.sendMail(emailDetails, (err, info) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log(info);
-    }
-  });
+  return await transport.sendMail(emailDetails);
 }

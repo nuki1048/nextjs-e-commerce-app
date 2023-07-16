@@ -13,18 +13,18 @@ const CategoryPage = ({ products }) => {
   return (
     <>
       <Head>
-        <title>{query.categoryName.toUpperCase()}</title>
+        <title>{query?.categoryName?.toUpperCase()}</title>
         <meta
           name="description"
-          content={`It's a ${query.categoryName} page where you can check our products of this category.`}
+          content={`It's a ${query?.categoryName} page where you can check our products of this category.`}
         />
         <meta
           property="og:description"
-          content={`It's a ${query.categoryName} page where you can check our products of this category.`}
+          content={`It's a ${query?.categoryName} page where you can check our products of this category.`}
         />
-        <meta property="og:title" content={query.categoryName} />
+        <meta property="og:title" content={query?.categoryName} />
       </Head>
-      <CategoryHeader title={query.categoryName} />
+      <CategoryHeader title={query?.categoryName} />
       <CategoryGrid data={products} />
       <Container>
         <div className="margin">

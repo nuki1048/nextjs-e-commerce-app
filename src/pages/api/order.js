@@ -95,10 +95,6 @@ async function handler(req, res) {
 
   deleteCookie("cart", { req, res });
 
-  res
-    .status(201)
-    .json({ order: response, message: "Order added successfully" });
-
   await sendMessage({
     from: '"Audiophile 👻" <audiophile@gmail.com>',
     to: "nik456618@gmail.com",
@@ -127,7 +123,7 @@ async function handler(req, res) {
       `,
   });
 
-  return await sendMessage({
+  await sendMessage({
     from: '"Audiophile 👻" <audiophile@gmail.com>',
     to: billingDetails.email,
     subject: "Order ✔",
@@ -143,5 +139,10 @@ async function handler(req, res) {
       })
     ),
   });
+  console.log("yep");
+
+  return res
+    .status(201)
+    .json({ order: response, message: "Order added successfully" });
 }
 export default handler;

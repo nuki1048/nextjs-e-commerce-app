@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 const ThanksfulModal = ({ isShow, total }) => {
   const { cartItems } = useSelector((state) => state.cart);
 
-  const slicedName = cartItems[0]?.name?.slice(0, 10);
+  const slicedName = `${cartItems[0]?.name?.slice(0, 7)}...`;
 
   return (
     <Modal isShow={isShow}>

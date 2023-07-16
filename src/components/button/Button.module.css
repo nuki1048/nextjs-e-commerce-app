@@ -18,6 +18,10 @@
   transition: 0.5s all;
 }
 
+.button:disabled {
+  opacity: 0.5;
+}
+
 .button:hover {
   background: var(--brand-light-orange);
 }

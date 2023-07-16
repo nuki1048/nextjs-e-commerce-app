@@ -1,7 +1,14 @@
 import Link from "next/link";
 import React from "react";
 import styles from "./Button.module.css";
-const Button = ({ href, children, variant, style, onClick: onClickEvent }) => {
+const Button = ({
+  href,
+  children,
+  variant,
+  style,
+  onClick: onClickEvent,
+  disabled,
+}) => {
   if (href) {
     return (
       <Link
@@ -18,6 +25,7 @@ const Button = ({ href, children, variant, style, onClick: onClickEvent }) => {
       className={`${styles.button} ${styles[variant]}`}
       style={style}
       onClick={onClickEvent}
+      disabled={disabled}
     >
       {children}
     </button>

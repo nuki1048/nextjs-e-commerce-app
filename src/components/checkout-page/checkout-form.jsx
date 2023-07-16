@@ -16,20 +16,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { clearCart } from "@/lib/redux/slices/cartSlice";
-import Cookies from "js-cookie";
 
 const CheckoutForm = ({}) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
-  const totalWitoutTaxesAndDelivery = cartItems.reduce(
+  const totalWithoutTaxesAndDelivery = cartItems.reduce(
     (total, item) => total + item.price * item.count,
     0
   );
-  const taxes = Math.round((totalWitoutTaxesAndDelivery / 100) * 7.66);
-  const totalWithTax = Math.round(totalWitoutTaxesAndDelivery + taxes);
+  const taxes = Math.round((totalWithoutTaxesAndDelivery / 100) * 7.66);
+  const totalWithTax = Math.round(totalWithoutTaxesAndDelivery + taxes);
   const delivery = 50;
   const totalWithTaxAndDelivery = totalWithTax + delivery;
+
   const schema = yup
     .object({
       email: yup.string().email().required(),
@@ -50,8 +50,12 @@ const CheckoutForm = ({}) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const [showModal, setModalShow] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState();
 
   const onSubmit = async (data) => {
+    setError(null);
+    setIsPending(true);
     const order = {
       billingDetails: {
         name: data.name,
@@ -65,24 +69,39 @@ const CheckoutForm = ({}) => {
         city: data.city,
       },
       paymentMethod: data.paymentMethod,
-      summary: totalWithTaxAndDelivery,
-      products: {
-        ...cartItems,
+      summary: {
+        totalWithTaxAndDelivery,
+        totalWithTax,
+        totalWithoutTaxesAndDelivery,
+        delivery,
+        taxes,
       },
+      products: [...cartItems],
     };
+    try {
+      await fetch("../api/order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      }).then(async (res) => {
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.message || "Something went wrong");
+        }
+      });
+    } catch (error) {
+      setError(error.message);
+      setIsPending(false);
+      return;
+    }
 
-    await fetch("../api/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order),
-    }).then((res) => {
-      setModalShow(true);
-      setTimeout(() => {
-        setModalShow(false);
-        dispatch(clearCart());
-        router.push("/");
-      }, 6000);
-    });
+    setIsPending(false);
+    setModalShow(true);
+    setTimeout(() => {
+      setModalShow(false);
+      dispatch(clearCart());
+      router.push("/");
+    }, 6000);
   };
   return (
     <section className={styles.section}>
@@ -209,7 +228,7 @@ const CheckoutForm = ({}) => {
               <div className={styles["info-item"]}>
                 <span className={styles.name}>TOTAL</span>
                 <span className={styles.price}>
-                  $ {totalWitoutTaxesAndDelivery}
+                  $ {totalWithoutTaxesAndDelivery}
                 </span>
               </div>
               <div className={styles["info-item"]}>
@@ -227,7 +246,15 @@ const CheckoutForm = ({}) => {
                 </span>
               </div>
             </div>
-            <Button style={{ marginTop: "32px" }}>CONTINUE & PAY</Button>
+            {!isPending && (
+              <Button style={{ marginTop: "32px" }}>CONTINUE & PAY</Button>
+            )}
+            {isPending && (
+              <Button style={{ marginTop: "32px" }} disabled={true}>
+                LOADING
+              </Button>
+            )}
+            {error && <span className="error">{error}</span>}
           </aside>
         </form>
       </Container>

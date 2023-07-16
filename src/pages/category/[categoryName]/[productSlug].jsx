@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect } from "react";
 import CategoryItemDetails from "@/components/category-page/category-item-details/category-item-details";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,8 +8,7 @@ import {
 } from "@/lib/redux/slices/cartSlice";
 
 import { setCookie } from "cookies-next";
-
-import Cookies from "js-cookie";
+import Head from "next/head";
 
 const ProductDetailsPage = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -40,8 +38,18 @@ const ProductDetailsPage = ({ product }) => {
     }
   }, [cartItems]);
 
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
+      <Head>
+        <title>{product.name}</title>{" "}
+        <meta name="description" content={product.description} />
+        <meta property="og:description" content={product.description} />
+        <meta property="og:title" content={product.name} />
+      </Head>
       <CategoryItemDetails
         data={product}
         onAddToCart={onAddToCart}
@@ -106,6 +114,6 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: "blocking",
+    fallback: true,
   };
 }

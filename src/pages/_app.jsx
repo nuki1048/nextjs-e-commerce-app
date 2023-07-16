@@ -1,15 +1,10 @@
-"use client";
 import "@/styles/globals.css";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import { wrapper } from "@/lib/redux/store";
 import { Manrope } from "next/font/google";
 import Layout from "@/components/layout/Layout";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import App, { AppProps } from "next/app";
-import { useEffect } from "react";
-import Cookies from "js-cookie";
-import { updateCart } from "@/lib/redux/slices/cartSlice";
 const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
   ssr: false,
 });
@@ -30,13 +25,44 @@ export default function MyApp({ Component, ...rest }) {
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
         />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <title>Audiophile E-Commerce-Shop </title>
+        <meta name="title" content="Audiophile E-Commerce-Shop " />
+        <meta
+          name="description"
+          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://metatags.io" />
+        <meta property="og:title" content="Audiophile E-Commerce-Shop " />
+        <meta
+          property="og:description"
+          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+        />
+        <meta
+          property="og:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content="https://metatags.io" />
+        <meta property="twitter:title" content="Audiophile E-Commerce-Shop " />
+        <meta
+          property="twitter:description"
+          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+        />
+        <meta
+          property="twitter:image"
+          content="https://metatags.io/images/meta-tags.png"
+        />
+
         <title>Audiophile</title>
       </Head>
       <main className={manrope.className}>
         <Provider store={store}>
           <Layout>
             <div style={{ zIndex: "10000" }}>
-              <AnimatedCursor
+              {/* <AnimatedCursor
                 innerSize={8}
                 outerSize={34}
                 innerScale={1}
@@ -49,7 +75,7 @@ export default function MyApp({ Component, ...rest }) {
                 outerStyle={{
                   border: "2px solid var(--brand-orange)",
                 }}
-              />
+              /> */}
             </div>
             <Component {...pageProps} />
           </Layout>

@@ -6,11 +6,24 @@ import Container from "@/components/container/Container";
 import Info from "@/components/home-page/info/info";
 import { checkEnvironment } from "@/lib/url";
 import { connectToDatabase, getDocuments } from "@/lib/db";
+import Head from "next/head";
 
 const CategoryPage = ({ products }) => {
   const { query } = useRouter();
   return (
     <>
+      <Head>
+        <title>{query.categoryName.toUpperCase()}</title>
+        <meta
+          name="description"
+          content={`It's a ${query.categoryName} page where you can check our products of this category.`}
+        />
+        <meta
+          property="og:description"
+          content={`It's a ${query.categoryName} page where you can check our products of this category.`}
+        />
+        <meta property="og:title" content={query.categoryName} />
+      </Head>
       <CategoryHeader title={query.categoryName} />
       <CategoryGrid data={products} />
       <Container>

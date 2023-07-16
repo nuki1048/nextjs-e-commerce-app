@@ -1,15 +1,20 @@
-import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "@/components/input/input";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import CheckoutForm from "@/components/checkout-page/checkout-form";
 import { wrapper } from "@/lib/redux/store";
 import { updateCart } from "@/lib/redux/slices/cartSlice";
+import Head from "next/head";
+import { useSelector } from "react-redux";
 
 const CheckoutPage = () => {
+  const { cartItems } = useSelector((state) => state.cart);
   return (
     <div>
+      <Head>
+        <title>Checkout Page({cartItems.length})</title>
+        <meta
+          property="og:title"
+          content={`Checkout Page(${cartItems.length})`}
+        />
+      </Head>
       <CheckoutForm />
     </div>
   );

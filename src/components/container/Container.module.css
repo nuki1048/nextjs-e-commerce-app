@@ -1,22 +1,23 @@
-.container{
-    max-width: 1100px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 @media (max-width: 1200px) {
-    .container{
-        max-width: 960px;
-    }
-}@media (max-width: 992px) {
-    .container{
-        max-width: 689px;
-    }
+  .container {
+    max-width: 960px;
+  }
+}
+@media (max-width: 992px) {
+  .container {
+    max-width: 689px;
+  }
 }
 
 @media (max-width: 576px) {
-    .container{
-        max-width: 327px;
-    }
+  .container {
+    max-width: 327px;
+  }
 }

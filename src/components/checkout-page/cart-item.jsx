@@ -1,9 +1,7 @@
-import React from "react";
-import styles from "./cart-item.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { addItemToCart } from "@/lib/redux/slices/cartSlice";
+
+import styles from "./cart-item.module.css";
 const CartItem = ({ data }) => {
   const { name, price, count, image, category, slug } = data;
   const slicesName = `${name.slice(0, 11)}..`;

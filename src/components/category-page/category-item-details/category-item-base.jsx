@@ -8,6 +8,8 @@ import Button from "@/components/button/Button";
 
 import styles from "./category-item-base.module.css";
 import { useSelector } from "react-redux";
+import { animated, useSpring } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 const CategoryItemBase = ({
   name,
   category,
@@ -23,25 +25,51 @@ const CategoryItemBase = ({
   const product = cartItems.find((item) => item.id === id);
   const titleText = name;
   const arr = titleText.split(" ");
+  const {
+    fromTopSpring,
+    fromLeftSpring,
+    fromRightSpring,
+    fromBottomSpring,
+    AnimatedLink,
+  } = useAnimations();
+
+  const fromTopSpringLink = useSpring({
+    from: {
+      opacity: 0,
+      y: -100,
+    },
+    to: {
+      opacity: 0.5,
+      y: 0,
+    },
+  });
 
   return (
     <div className={styles.item}>
       <Container>
-        <Link href={`/category/${category}`} className={styles.link}>
+        <AnimatedLink
+          style={fromTopSpringLink}
+          href={`/category/${category}`}
+          className={styles.link}
+        >
           Go back
-        </Link>
+        </AnimatedLink>
         <div className={styles.content}>
-          <div className={styles.image}>
+          <animated.div style={fromLeftSpring} className={styles.image}>
             <Image src={image.desktop} alt="image" width={300} height={300} />
-          </div>
+          </animated.div>
           <div className={styles.info}>
-            {newProduct && <span>New product</span>}
-            <h2>
+            {newProduct && (
+              <animated.span style={fromTopSpring}>New product</animated.span>
+            )}
+            <animated.h2 style={fromRightSpring}>
               {arr[0]} <br /> {arr[1]}
-            </h2>
-            <p>{description}</p>
-            <span className={styles.price}>$ {price}</span>
-            <div className={styles.actions}>
+            </animated.h2>
+            <animated.p style={fromRightSpring}>{description}</animated.p>
+            <animated.span style={fromRightSpring} className={styles.price}>
+              $ {price}
+            </animated.span>
+            <animated.div style={fromBottomSpring} className={styles.actions}>
               <InputNumber
                 width={"120px"}
                 height={"48px"}
@@ -55,7 +83,7 @@ const CategoryItemBase = ({
               >
                 ADD TO CART
               </Button>
-            </div>
+            </animated.div>
           </div>
         </div>
       </Container>

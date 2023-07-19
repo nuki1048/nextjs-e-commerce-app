@@ -6,57 +6,76 @@ import Button from "../button/Button";
 
 import styles from "./thanksful-modal.module.css";
 import { useSelector } from "react-redux";
+import { useTransition, animated } from "@react-spring/web";
 
 const ThanksfulModal = ({ isShow, total }) => {
   const { cartItems } = useSelector((state) => state.cart);
 
   const slicedName = `${cartItems[0]?.name?.slice(0, 7)}...`;
+  const transition = useTransition(isShow, {
+    from: {
+      top: 0,
+      opacity: 0,
+    },
+    enter: {
+      top: 110,
+      opacity: 1,
+    },
+    leave: {
+      top: 0,
+      opacity: 0,
+    },
+  });
 
   return (
-    <Modal isShow={isShow}>
-      <div className={styles.content}>
-        <Image
-          src="/assets/checkout/icon-order-confirmation.svg"
-          alt="order confirmation icon"
-          width={64}
-          height={64}
-        />
-        <h2>THANK YOU FOR YOUR ORDER</h2>
-        <p>You will receive an email confirmation shortly.</p>
+    <>
+      {transition((style, isShow) => (
+        <Modal isShow={isShow}>
+          <animated.div style={style} className={styles.content}>
+            <Image
+              src="/assets/checkout/icon-order-confirmation.svg"
+              alt="order confirmation icon"
+              width={64}
+              height={64}
+            />
+            <h2>THANK YOU FOR YOUR ORDER</h2>
+            <p>You will receive an email confirmation shortly.</p>
 
-        <div className={styles.items}>
-          <div className={styles["white-section"]}>
-            <div className={styles.item}>
-              <div className={styles.image}>
-                <Image
-                  src={cartItems[0]?.image}
-                  alt="Cart Item Photo"
-                  width={50}
-                  height={50}
-                />
+            <div className={styles.items}>
+              <div className={styles["white-section"]}>
+                <div className={styles.item}>
+                  <div className={styles.image}>
+                    <Image
+                      src={cartItems[0]?.image}
+                      alt="Cart Item Photo"
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <div>
+                    <span>{cartItems && slicedName}</span>
+                    <p className={styles.price}>$ {cartItems[0]?.price}</p>
+                  </div>
+                  <p className={styles.count}>x{cartItems[0]?.count}</p>
+                </div>
+                <hr />
+                <span className={styles.more}>
+                  and {cartItems?.length - 1} other item(s)
+                </span>
               </div>
-              <div>
-                <span>{cartItems && slicedName}</span>
-                <p className={styles.price}>$ {cartItems[0]?.price}</p>
+              <div className={styles["black-section"]}>
+                <h3>GRAND TOTAL</h3>
+                <span>$ {total}</span>
               </div>
-              <p className={styles.count}>x{cartItems[0]?.count}</p>
             </div>
-            <hr />
-            <span className={styles.more}>
-              and {cartItems?.length - 1} other item(s)
-            </span>
-          </div>
-          <div className={styles["black-section"]}>
-            <h3>GRAND TOTAL</h3>
-            <span>$ {total}</span>
-          </div>
-        </div>
 
-        <Button href={"/"} style={{ marginTop: "46px" }}>
-          BACK TO HOME
-        </Button>
-      </div>
-    </Modal>
+            <Button href={"/"} style={{ marginTop: "46px" }}>
+              BACK TO HOME
+            </Button>
+          </animated.div>
+        </Modal>
+      ))}
+    </>
   );
 };
 

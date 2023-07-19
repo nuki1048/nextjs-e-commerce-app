@@ -1,23 +1,24 @@
-import React from "react";
-import styles from "./checkout-form.module.css";
-import Input from "../input/input";
-import Container from "../container/Container";
-
-import { yupResolver } from "@hookform/resolvers/yup";
+import dynamic from "next/dynamic";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import Radio from "../radio/radio";
-import CartItem from "./cart-item";
-import Button from "../button/Button";
-import Image from "next/image";
-
-import ThanksfulModal from "../thanksful-modal/thanksful-modal";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string, number } from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { clearCart } from "@/lib/redux/slices/cartSlice";
 
-const CheckoutForm = ({}) => {
+import Input from "../input/input";
+import Container from "../container/Container";
+import Radio from "../radio/radio";
+import Spinner from "../spinner/spinner";
+import Button from "../button/Button";
+import Image from "next/image";
+
+import CartItem from "./cart-item";
+import ThanksfulModal from "../thanksful-modal/thanksful-modal";
+import styles from "./checkout-form.module.css";
+
+const CheckoutForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
@@ -30,17 +31,15 @@ const CheckoutForm = ({}) => {
   const delivery = 50;
   const totalWithTaxAndDelivery = totalWithTax + delivery;
 
-  const schema = yup
-    .object({
-      email: yup.string().email().required(),
-      name: yup.string().min(1).required(),
-      telephone: yup.number().min(5).required(),
-      address: yup.string().required(),
-      zipCode: yup.number().min(5).required(),
-      country: yup.string().required(),
-      city: yup.string().required(),
-    })
-    .required();
+  const schema = object({
+    email: string().email().required(),
+    name: string().min(1).required(),
+    telephone: number().min(5).required(),
+    address: string().required(),
+    zipCode: number().min(5).required(),
+    country: string().required(),
+    city: string().required(),
+  }).required();
 
   const {
     register,
@@ -51,7 +50,7 @@ const CheckoutForm = ({}) => {
 
   const [showModal, setModalShow] = useState(false);
   const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
 
   const onSubmit = async (data) => {
     setError(null);
@@ -119,19 +118,19 @@ const CheckoutForm = ({}) => {
                   register={register("name", { required: true })}
                   error={errors.name}
                   label="Name"
-                  placeholder={"Alexei Ward"}
+                  placeholder="Alexei Ward"
                 />
                 <Input
                   register={register("email", { required: true })}
                   error={errors.email}
                   label="Email Address"
-                  placeholder={"alexei@mail.com"}
+                  placeholder="alexei@mail.com"
                 />
                 <Input
                   register={register("telephone", { required: true })}
                   error={errors.telephone}
                   label="Phone Number"
-                  placeholder={"+1 202-555-0136"}
+                  placeholder="+1 202-555-0136"
                 />
               </div>
             </div>
@@ -142,25 +141,25 @@ const CheckoutForm = ({}) => {
                   register={register("address", { required: true })}
                   error={errors.address}
                   label="Your Address"
-                  placeholder={"1137 Williams Avenue"}
+                  placeholder="1137 Williams Avenue"
                 />
                 <Input
                   register={register("zipCode", { required: true })}
                   error={errors.zipCode}
                   label="ZIP Code"
-                  placeholder={"10001"}
+                  placeholder="10001"
                 />
                 <Input
                   register={register("city", { required: true })}
                   error={errors.city}
                   label="City"
-                  placeholder={"New York"}
+                  placeholder="New York"
                 />
                 <Input
                   register={register("country", { required: true })}
                   error={errors.country}
                   label="Country"
-                  placeholder={"United States"}
+                  placeholder="United States"
                 />
               </div>
             </div>
@@ -195,7 +194,7 @@ const CheckoutForm = ({}) => {
                     register={register("eMoneyPin", { required: false })}
                     error={errors.eMoneyPin}
                     label="e-Money PIN"
-                    placeholder={"6891"}
+                    placeholder="6891"
                   />
                 </div>
               )}
@@ -208,10 +207,10 @@ const CheckoutForm = ({}) => {
                     height={30}
                   />
                   <p>
-                    The ‘Cash on Delivery’ option enables you to pay in cash
-                    when our delivery courier arrives at your residence. Just
-                    make sure your address is correct so that your order will
-                    not be cancelled.
+                    The Cash on Delivery option enables you to pay in cash when
+                    our delivery courier arrives at your residence. Just make
+                    sure your address is correct so that your order will not be
+                    cancelled.
                   </p>
                 </div>
               )}
@@ -258,7 +257,9 @@ const CheckoutForm = ({}) => {
           </aside>
         </form>
       </Container>
-      <ThanksfulModal isShow={showModal} total={totalWithTaxAndDelivery} />
+      {showModal && (
+        <ThanksfulModal isShow={showModal} total={totalWithTaxAndDelivery} />
+      )}
     </section>
   );
 };

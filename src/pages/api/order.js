@@ -64,7 +64,6 @@ async function handler(req, res) {
 
   const orderNumber = orderNumsGenerator();
   const dateOfOrder = new Date().toISOString();
-  console.log(dateOfOrder);
 
   const order = {
     orderNumber,
@@ -139,7 +138,6 @@ async function handler(req, res) {
       })
     ),
   });
-  console.log("yep");
 
   return res
     .status(201)

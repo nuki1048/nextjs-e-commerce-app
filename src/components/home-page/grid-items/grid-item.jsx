@@ -1,13 +1,28 @@
 import React from "react";
-import styles from "./grid-item.module.css";
 import Image from "next/image";
 import Container from "@/components/container/Container";
 import Button from "@/components/button/Button";
+import styles from "./grid-item.module.css";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 const GridItems = () => {
+  const { fromLeftView, fromRightView, fromBottomView } = useAnimations(
+    300,
+    300
+  );
+
+  const [refZX9, springsZX9] = fromLeftView;
+  const [refZX7, springsZX7] = fromRightView;
+
+  const [refEarphones, springsEarphones] = fromBottomView;
   return (
     <Container>
       <section className={styles.grid}>
-        <div className={styles["speaker-zx9"]}>
+        <animated.div
+          ref={refZX9}
+          style={springsZX9}
+          className={styles["speaker-zx9"]}
+        >
           <Image
             src="/assets/home/desktop/image-speaker-zx9.png"
             alt="speaker preview photo"
@@ -22,34 +37,48 @@ const GridItems = () => {
             </p>
             <Button
               variant={"black"}
-              style={{ width: "160px", marginTop: "40px" }}
+              style={{ width: "160px" }}
               href={"/category/speakers/zx9-speaker"}
             >
               See Product
             </Button>
           </div>
-        </div>
-        <div className={styles["speaker-zx7"]}>
+        </animated.div>
+        <animated.div
+          ref={refZX7}
+          style={springsZX7}
+          className={styles["speaker-zx7"]}
+        >
           <h2>ZX7 SPEAKER</h2>
           <Button
             variant={"black-outline"}
             href={"/category/speakers/zx7-speaker"}
-            style={{ width: "160px", marginTop: "40px" }}
+            style={{ width: "160px" }}
           >
             See Product
           </Button>
-        </div>
-        <div className={styles.earphones}>.</div>
-        <div className={styles["earphones-info"]}>
+        </animated.div>
+        <animated.div
+          ref={refEarphones}
+          style={springsEarphones}
+          className={styles.earphones}
+        >
+          .
+        </animated.div>
+        <animated.div
+          ref={refEarphones}
+          style={springsEarphones}
+          className={styles["earphones-info"]}
+        >
           <h2>YX1 EARPHONES</h2>
           <Button
             variant={"black-outline"}
             href={"/category/earphones/yx1-earphones"}
-            style={{ width: "160px", marginTop: "40px" }}
+            style={{ width: "160px" }}
           >
             See Product
           </Button>
-        </div>
+        </animated.div>
       </section>
     </Container>
   );

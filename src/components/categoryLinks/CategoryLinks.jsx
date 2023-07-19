@@ -2,10 +2,16 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./CategoryLinks.module.css";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
+
 const CategoryLinks = ({ style }) => {
+  const { opacityView } = useAnimations();
+  const [refLink, springs] = opacityView;
+
   return (
     <ul className={styles.links} style={style}>
-      <li className={styles.link}>
+      <animated.li className={styles.link} ref={refLink} style={springs}>
         <Image
           src="/assets/shared/desktop/image-category-thumbnail-headphones.png"
           alt="Headphones preview image"
@@ -14,8 +20,8 @@ const CategoryLinks = ({ style }) => {
         />
         <p>HEADPHONES</p>
         <Link href={"/category/headphones"}>Shop</Link>
-      </li>
-      <li className={styles.link}>
+      </animated.li>
+      <animated.li className={styles.link} ref={refLink} style={springs}>
         <Image
           src="/assets/shared/desktop/image-category-thumbnail-speakers.png"
           alt="Speakers preview image"
@@ -24,8 +30,8 @@ const CategoryLinks = ({ style }) => {
         />
         <p>Speakers</p>
         <Link href={"/category/speakers"}>Shop</Link>
-      </li>
-      <li className={styles.link}>
+      </animated.li>
+      <animated.li className={styles.link} ref={refLink} style={springs}>
         <Image
           src="/assets/shared/desktop/image-category-thumbnail-earphones.png"
           alt="Earphones preview image"
@@ -36,7 +42,7 @@ const CategoryLinks = ({ style }) => {
         <Link href={"/category/earphones"} className={styles.button}>
           Shop
         </Link>
-      </li>
+      </animated.li>
     </ul>
   );
 };

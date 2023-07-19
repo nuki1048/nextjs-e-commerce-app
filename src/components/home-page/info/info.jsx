@@ -1,17 +1,24 @@
 import React from "react";
-import styles from "./info.module.css";
 import Container from "@/components/container/Container";
-import Image from "next/image";
+import styles from "./info.module.css";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 const Info = ({ style }) => {
+  const { AnimatedImage, fromLeftView, fromRightView } = useAnimations();
+  const [refP, springsP] = fromLeftView;
+  const [refH2, springH2] = fromLeftView;
+
+  const [refImage, springImage] = fromRightView;
+
   return (
     <section className={styles.section} style={{ style }}>
       <Container>
         <div className={styles.wrapper}>
-          <div>
-            <h2>
+          <div className={styles.text}>
+            <animated.h2 ref={refH2} style={springH2}>
               Bringing you the <span>best</span> audio gear
-            </h2>
-            <p>
+            </animated.h2>
+            <animated.p ref={refP} style={springsP}>
               Located at the heart of New York City, Audiophile is the premier
               store for high end headphones, earphones, speakers, and audio
               accessories. We have a large showroom and luxury demonstration
@@ -19,13 +26,15 @@ const Info = ({ style }) => {
               our products. Stop by our store to meet some of the fantastic
               people who make Audiophile the best place to buy your portable
               audio equipment.
-            </p>
+            </animated.p>
           </div>
-          <Image
+          <AnimatedImage
             src="/assets/shared/desktop/image-best-gear.jpg"
             alt="image hero"
             width={500}
             height={500}
+            ref={refImage}
+            style={springImage}
           />
         </div>
       </Container>

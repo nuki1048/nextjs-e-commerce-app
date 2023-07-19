@@ -1,12 +1,22 @@
 import React from "react";
 import styles from "./category-item-info.module.css";
 import Container from "@/components/container/Container";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 const CategoryItemInfo = ({ features, includes }) => {
   const splitFeatures = features.split("\n").filter((item) => item !== "");
+  const { fromLeftView, fromRightView } = useAnimations();
+  const [fromLeftRef, fromLeftSpring] = fromLeftView;
+  const [fromRightRef, fromRightSpring] = fromRightView;
+
   return (
     <Container>
       <div className={styles.info}>
-        <div className={styles.features}>
+        <animated.div
+          ref={fromLeftRef}
+          style={fromLeftSpring}
+          className={styles.features}
+        >
           <h3>FEATURES</h3>
           <p>
             {splitFeatures[0]}
@@ -14,8 +24,12 @@ const CategoryItemInfo = ({ features, includes }) => {
             <br />
             {splitFeatures[1]}
           </p>
-        </div>
-        <div className={styles.box}>
+        </animated.div>
+        <animated.div
+          ref={fromRightRef}
+          style={fromRightSpring}
+          className={styles.box}
+        >
           <h3>in the box</h3>
           <ul>
             {includes.map((includesItem) => (
@@ -25,7 +39,7 @@ const CategoryItemInfo = ({ features, includes }) => {
               </li>
             ))}
           </ul>
-        </div>
+        </animated.div>
       </div>
     </Container>
   );

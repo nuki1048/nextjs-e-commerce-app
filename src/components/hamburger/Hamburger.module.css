@@ -1,7 +1,7 @@
 .hamburger {
   width: 16px;
   height: 15px;
-  margin-right: 42px;
+  margin-right: 75px;
 }
 .hamburger .line {
   width: 16px;
@@ -33,6 +33,6 @@
 }
 @media (max-width: 576px) {
   .menu {
-    padding: 80px 24px 35px ;
+    padding: 80px 24px 35px;
   }
 }

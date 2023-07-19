@@ -5,7 +5,6 @@ import styles from "./category-grid.module.css";
 const CategoryGrid = ({ data }) => {
   return (
     <Container>
-      {/* TODO: Change to map of data */}
       <div className={styles["grid-container"]}>
         {data?.map((item, index) => (
           <CategoryItem count={index + 1} key={item._id} data={item} />

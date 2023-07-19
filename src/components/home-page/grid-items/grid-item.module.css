@@ -114,6 +114,12 @@
   text-transform: uppercase;
 }
 
+.speaker-info a,
+.speaker-zx7 a,
+.earphones-info a {
+  margin-top: 40px;
+}
+
 @media (max-width: 1200px) {
   .speaker-zx9 {
     padding: 130px 20px 0 20px;
@@ -145,19 +151,25 @@
     text-align: center;
     width: 350px;
   }
+  .speaker-info a {
+    margin: 40px auto 0 auto;
+  }
 
   .speaker-zx7 {
     background: url("/assets/home/tablet/image-speaker-zx7.jpg") center
       no-repeat;
     padding: 96px 0 0 60px;
   }
+  .speaker-zx7 a[class] {
+    margin-top: 0;
+  }
   .earphones-info {
-    padding: 95px 0 0 30px;
+    padding: 62px 0 0 26px;
   }
 }
 @media (max-width: 768px) {
   .grid {
-    margin-top: 56px;
+    margin-top: 100px;
     grid-template-columns: 100%;
     justify-content: flex-start;
     grid-template-rows: 722px 327px repeat(2, 200px);
@@ -168,6 +180,7 @@
     gap: 32px;
     justify-content: space-between;
   }
+
   .speaker-info p {
     width: 330px;
     margin: 25px auto 0 auto;
@@ -230,5 +243,8 @@
   }
   .earphones-info {
     padding: 21px 56px 40px 24px;
+  }
+  .earphones-info a {
+    margin: 0;
   }
 }

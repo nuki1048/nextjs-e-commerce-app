@@ -4,9 +4,13 @@ import Image from "next/image";
 import Button from "@/components/button/Button";
 
 import Container from "@/components/container/Container";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 
 const CategoryItemOffers = ({ offers }) => {
   const buttonStyle = { marginTop: "32px", width: "160px", height: "48px" };
+  const { opacityView } = useAnimations();
+  const [opacityRef, opacitySpring] = opacityView;
 
   return (
     <Container>
@@ -25,7 +29,11 @@ const CategoryItemOffers = ({ offers }) => {
             }
 
             return (
-              <li key={offer.slug}>
+              <animated.li
+                ref={opacityRef}
+                style={opacitySpring}
+                key={offer.slug}
+              >
                 <Image
                   src={offer.image.desktop}
                   alt="Offers Image"
@@ -36,7 +44,7 @@ const CategoryItemOffers = ({ offers }) => {
                 <Button style={buttonStyle} href={href}>
                   See Product
                 </Button>
-              </li>
+              </animated.li>
             );
           })}
         </ul>

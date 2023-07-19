@@ -29,7 +29,7 @@ export default function MyApp({ Component, ...rest }) {
         <meta name="title" content="Audiophile E-Commerce-Shop " />
         <meta
           name="description"
-          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+          content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
 
         <meta property="og:type" content="website" />
@@ -37,7 +37,7 @@ export default function MyApp({ Component, ...rest }) {
         <meta property="og:title" content="Audiophile E-Commerce-Shop " />
         <meta
           property="og:description"
-          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+          content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
         <meta
           property="og:image"
@@ -49,7 +49,7 @@ export default function MyApp({ Component, ...rest }) {
         <meta property="twitter:title" content="Audiophile E-Commerce-Shop " />
         <meta
           property="twitter:description"
-          content="Audiophile it's an E-Commerce-Shop where you can buy some headphones, earphones, and speakers to any taste!"
+          content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
         <meta
           property="twitter:image"
@@ -62,7 +62,7 @@ export default function MyApp({ Component, ...rest }) {
         <Provider store={store}>
           <Layout>
             <div style={{ zIndex: "10000" }}>
-              {/* <AnimatedCursor
+              <AnimatedCursor
                 innerSize={8}
                 outerSize={34}
                 innerScale={1}
@@ -75,7 +75,7 @@ export default function MyApp({ Component, ...rest }) {
                 outerStyle={{
                   border: "2px solid var(--brand-orange)",
                 }}
-              /> */}
+              />
             </div>
             <Component {...pageProps} />
           </Layout>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearCart, updateCartTotal } from "@/lib/redux/slices/cartSlice";
 import Button from "../button/Button";
 import { setCookie } from "cookies-next";
+import { animated, useTransition } from "@react-spring/web";
 const ModalCart = ({ isShow }) => {
   const dispatch = useDispatch();
   const { cartItems, cartTotal } = useSelector((state) => state.cart);
@@ -23,30 +24,53 @@ const ModalCart = ({ isShow }) => {
     setCookie("cart", []);
   };
 
+  const transition = useTransition(isShow, {
+    from: {
+      top: 0,
+      opacity: 0,
+    },
+    enter: {
+      top: 131,
+      opacity: 1,
+    },
+    leave: {
+      top: 0,
+      opacity: 0,
+    },
+  });
+
+  // const [springs, api] = useTransition(() => ({
+  //   from: { top: 0, opacity: 0 },
+  // }));
+
   return (
-    <Modal isShow={isShow}>
-      <div className={styles.content}>
-        <div className={styles["cart-info"]}>
-          <h3 className={styles.counter}>cart ({cartItems.length})</h3>
-          <button className={styles.button} onClick={onClearCart}>
-            Remove all
-          </button>
-        </div>
+    <>
+      {transition((style, isShow) => (
+        <Modal isShow={isShow}>
+          <animated.div style={style} className={styles.content}>
+            <div className={styles["cart-info"]}>
+              <h3 className={styles.counter}>cart ({cartItems.length})</h3>
+              <button className={styles.button} onClick={onClearCart}>
+                Remove all
+              </button>
+            </div>
 
-        <ul className={styles.list}>
-          {cartItems.map((item) => (
-            <ModalCartItem key={item.id} data={item} />
-          ))}
-        </ul>
+            <ul className={styles.list}>
+              {cartItems.map((item) => (
+                <ModalCartItem key={item.id} data={item} />
+              ))}
+            </ul>
 
-        <div className={styles.price}>
-          <p>total</p>
-          <span>$ {cartTotal}</span>
-        </div>
+            <div className={styles.price}>
+              <p>total</p>
+              <span>$ {cartTotal}</span>
+            </div>
 
-        <Button href={"/checkout"}>Checkout</Button>
-      </div>
-    </Modal>
+            <Button href={"/checkout"}>Checkout</Button>
+          </animated.div>
+        </Modal>
+      ))}
+    </>
   );
 };
 

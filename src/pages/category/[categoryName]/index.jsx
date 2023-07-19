@@ -4,7 +4,6 @@ import CategoryHeader from "@/components/category-page/category-header/category-
 import CategoryLinks from "@/components/categoryLinks/CategoryLinks";
 import Container from "@/components/container/Container";
 import Info from "@/components/home-page/info/info";
-import { checkEnvironment } from "@/lib/url";
 import { connectToDatabase, getDocuments } from "@/lib/db";
 import Head from "next/head";
 
@@ -59,6 +58,7 @@ export async function getStaticProps(context) {
 
   return {
     props: { products: JSON.parse(JSON.stringify(data)) },
+    revalidate: 300,
   };
 }
 

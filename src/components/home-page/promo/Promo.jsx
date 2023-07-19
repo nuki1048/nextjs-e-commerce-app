@@ -1,11 +1,20 @@
 import React from "react";
 import styles from "./Promo.module.css";
 import Image from "next/image";
-import Link from "next/link";
 import Container from "@/components/container/Container";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 const Promo = () => {
+  const { fromLeftSpring, fromRightSpring, fromBottomSpring, AnimatedLink } =
+    useAnimations();
+  const springsH1 = fromLeftSpring;
+
+  const springsH3 = fromRightSpring;
+  const springsP = fromRightSpring;
+  const springsLink = fromBottomSpring;
+
   return (
-    <div className={styles.promo}>
+    <section className={styles.promo}>
       <Image
         src="/assets/home/desktop/image-hero.jpg"
         alt="Background image"
@@ -29,18 +38,26 @@ const Promo = () => {
       />
       <div className={styles["promo-content"]}>
         <Container>
-          <h3 className={styles.product}>New product</h3>
-          <h1 className={styles.title}>XX99 Mark II Headphones</h1>
-          <p className={styles.info}>
+          <animated.h3 style={springsH3} className={styles.product}>
+            New product
+          </animated.h3>
+          <animated.h1 style={springsH1} className={styles.title}>
+            XX99 Mark II Headphones
+          </animated.h1>
+          <animated.p style={springsP} className={styles.info}>
             Experience natural, lifelike audio and exceptional build quality
             made for the passionate music enthusiast.
-          </p>
-          <Link href={"/category/headphones/"} className={styles.button}>
+          </animated.p>
+          <AnimatedLink
+            style={springsLink}
+            href={"/category/headphones/xx99-mark-two-headphones"}
+            className={styles.button}
+          >
             See Product
-          </Link>
+          </AnimatedLink>
         </Container>
       </div>
-    </div>
+    </section>
   );
 };
 

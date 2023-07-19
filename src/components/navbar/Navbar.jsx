@@ -28,7 +28,7 @@ const Navbar = () => {
     if (modalShow) {
       setZIndex(2000);
     } else {
-      setZIndex(1);
+      setZIndex(100);
     }
   }, [modalShow]);
 

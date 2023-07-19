@@ -9,6 +9,7 @@ import {
 
 import { setCookie } from "cookies-next";
 import Head from "next/head";
+import Spinner from "@/components/spinner/spinner";
 
 const ProductDetailsPage = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -39,7 +40,11 @@ const ProductDetailsPage = ({ product }) => {
   }, [cartItems]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ padding: "200px" }}>
+        <Spinner width={200} height={200} />
+      </div>
+    );
   }
 
   return (

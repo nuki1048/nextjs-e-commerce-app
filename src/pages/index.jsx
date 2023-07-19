@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <main>
       <Head>
-        <title>Audiophile Main Page</title>{" "}
+        <title>Audiophile Main Page</title>
         <meta
           name="description"
           content="It's a main page of Audiophile E Commerce Shop where you can see some info about our products"
@@ -21,6 +21,7 @@ export default function Home() {
           content="It's a main page of Audiophile E Commerce Shop where you can see some info about our products"
         />
       </Head>
+
       <Promo />
       <div className="margin">
         <Container>

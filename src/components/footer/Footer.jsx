@@ -2,35 +2,79 @@ import React from "react";
 import styles from "./Footer.module.css";
 import Container from "@/components/container/Container";
 import Image from "next/image";
-import Link from "next/link";
+import { animated } from "@react-spring/web";
+import { useAnimations } from "@/lib/animations";
 
 const Footer = () => {
+  const {
+    fromTopView,
+    fromBottomView,
+    opacityView,
+    AnimatedLink,
+    AnimatedImage,
+  } = useAnimations();
+  const [refLinks, springsLinks] = fromTopView;
+
+  const [refDesc, springsDesc] = fromBottomView;
+
+  const [refOpacity, springsOpacity] = opacityView;
+
   return (
     <footer className={styles.footer}>
       <Container>
         <div className={styles["footer-content"]}>
           <nav className={styles.navbar}>
-            <Image
+            <AnimatedImage
+              ref={refOpacity}
+              style={springsOpacity}
               src="/assets/shared/desktop/logo.svg"
               alt="logo"
               width={143}
               height={25}
             />
             <ul>
-              <Link href="/">Home</Link>
-              <Link href={"/category/headphones"}>Headphones</Link>
-              <Link href={"/category/speakers"}>Speakers</Link>
-              <Link href={"/category/earphones"}>Earphones</Link>
+              <AnimatedLink ref={refLinks} style={springsLinks} href="/">
+                Home
+              </AnimatedLink>
+              <AnimatedLink
+                ref={refLinks}
+                style={springsLinks}
+                href={"/category/headphones"}
+              >
+                Headphones
+              </AnimatedLink>
+              <AnimatedLink
+                ref={refLinks}
+                style={springsLinks}
+                href={"/category/speakers"}
+              >
+                Speakers
+              </AnimatedLink>
+              <AnimatedLink
+                ref={refLinks}
+                style={springsLinks}
+                href={"/category/earphones"}
+              >
+                Earphones
+              </AnimatedLink>
             </ul>
           </nav>
-          <div className={styles.info}>
-            <p className={styles.description}>
+          <animated.div
+            className={styles.info}
+            ref={refDesc}
+            style={springsDesc}
+          >
+            <animated.p
+              className={styles.description}
+              ref={refDesc}
+              style={springsDesc}
+            >
               Audiophile is an all in one stop to fulfill your audio needs.
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               We're a small team of music lovers and sound specialists who are
               devoted to helping you get the most out of personal audio. Come
               and visit our demo facility - we’re open 7 days a week.
-            </p>
+            </animated.p>
             <div className={styles["social-media"]}>
               <Image
                 src="/assets/shared/desktop/icon-instagram.svg"
@@ -54,10 +98,14 @@ const Footer = () => {
                 height={24}
               />
             </div>
-          </div>
-          <p className={styles.copyright}>
+          </animated.div>
+          <animated.p
+            className={styles.copyright}
+            ref={refDesc}
+            style={springsDesc}
+          >
             Copyright 2021. All Rights Reserved
-          </p>
+          </animated.p>
         </div>
       </Container>
     </footer>

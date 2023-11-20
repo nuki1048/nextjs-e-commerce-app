@@ -1,29 +1,34 @@
-import CategoryLinks from "@/components/categoryLinks/CategoryLinks";
-import Container from "@/components/container/Container";
-import Promo from "@/components/home-page/promo/Promo";
-import GridItems from "@/components/home-page/grid-items/grid-item";
-import Info from "@/components/home-page/info/info";
-import { updateCart } from "@/lib/redux/slices/cartSlice";
-import { wrapper } from "@/lib/redux/store";
-import Head from "next/head";
+import CategoryLinks from '@/components/categoryLinks/CategoryLinks';
+import Container from '@/components/container/Container';
+import Promo from '@/components/home-page/promo/Promo';
+import GridItems from '@/components/home-page/grid-items/grid-item';
+import Info from '@/components/home-page/info/info';
+import { updateCart } from '@/lib/redux/slices/cartSlice';
+import { wrapper } from '@/lib/redux/store';
+import Head from 'next/head';
+import { ToastContainer, toast } from 'react-toastify';
+
+import { useEffect } from 'react';
 
 export default function Home() {
+  useEffect(() => {}, []);
+
   return (
     <main>
       <Head>
         <title>Audiophile Main Page</title>
         <meta
-          name="description"
+          name='description'
           content="It's a main page of Audiophile E Commerce Shop where you can see some info about our products"
         />
         <meta
-          property="og:description"
+          property='og:description'
           content="It's a main page of Audiophile E Commerce Shop where you can see some info about our products"
         />
       </Head>
 
       <Promo />
-      <div className="margin">
+      <div className='margin'>
         <Container>
           <CategoryLinks />
         </Container>

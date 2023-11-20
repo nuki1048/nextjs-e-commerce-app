@@ -1,9 +1,9 @@
-import React from "react";
-import styles from "./category-item-gallery.module.css";
-import Image from "next/image";
+import React from 'react';
+import styles from './category-item-gallery.module.css';
+import Image from 'next/image';
 
-import Container from "@/components/container/Container";
-import { useAnimations } from "@/lib/animations";
+import Container from '@/components/container/Container';
+import { useAnimations } from '@/lib/animations';
 const CategoryItemGrid = ({ gallery }) => {
   const { AnimatedImage, fromTopView, fromBottomView, fromRightView } =
     useAnimations();
@@ -13,7 +13,7 @@ const CategoryItemGrid = ({ gallery }) => {
 
   return (
     <Container>
-      <div className={styles.grid}>
+      <div className={styles.grid} data-test='product-gallery'>
         {Object.keys(gallery).map((photo, index) => {
           switch (index) {
             case 0:
@@ -23,7 +23,7 @@ const CategoryItemGrid = ({ gallery }) => {
                   style={fromTopSpring}
                   key={gallery[photo].desktop}
                   src={gallery[photo].desktop}
-                  alt="Gallery image"
+                  alt='Gallery image'
                   width={700}
                   height={600}
                 />
@@ -35,7 +35,7 @@ const CategoryItemGrid = ({ gallery }) => {
                   style={fromBottomSpring}
                   key={gallery[photo].desktop}
                   src={gallery[photo].desktop}
-                  alt="Gallery image"
+                  alt='Gallery image'
                   width={700}
                   height={600}
                 />
@@ -47,7 +47,7 @@ const CategoryItemGrid = ({ gallery }) => {
                   style={fromRightSpring}
                   key={gallery[photo].desktop}
                   src={gallery[photo].desktop}
-                  alt="Gallery image"
+                  alt='Gallery image'
                   width={700}
                   height={600}
                 />
@@ -57,7 +57,7 @@ const CategoryItemGrid = ({ gallery }) => {
                 <Image
                   key={gallery[photo].desktop}
                   src={gallery[photo].desktop}
-                  alt="Gallery image"
+                  alt='Gallery image'
                   width={700}
                   height={600}
                 />

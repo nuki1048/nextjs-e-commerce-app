@@ -6,6 +6,10 @@
   --brand-black: #101010;
   --pure-white: #ffffff;
   --pure-black: #000000;
+
+  --toastify-color-success: var(--brand-orange);
+  --toastify-color-progress-success: var(--brand-orange);
+  --toastify-icon-color-success: var(--brand-orange);
 }
 body {
   margin: 0;

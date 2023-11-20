@@ -1,15 +1,16 @@
-import React, { useEffect } from "react";
-import CategoryItemDetails from "@/components/category-page/category-item-details/category-item-details";
-import { useDispatch, useSelector } from "react-redux";
-import { connectToDatabase, getDocuments } from "@/lib/db";
+import React, { useEffect } from 'react';
+import CategoryItemDetails from '@/components/category-page/category-item-details/category-item-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { connectToDatabase, getDocuments } from '@/lib/db';
 import {
   addItemToCart,
   deleteItemFromCart,
-} from "@/lib/redux/slices/cartSlice";
+} from '@/lib/redux/slices/cartSlice';
 
-import { setCookie } from "cookies-next";
-import Head from "next/head";
-import Spinner from "@/components/spinner/spinner";
+import { setCookie } from 'cookies-next';
+import Head from 'next/head';
+import Spinner from '@/components/spinner/spinner';
+import { ToastContainer, toast } from 'react-toastify';
 
 const ProductDetailsPage = ({ product }) => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -25,23 +26,25 @@ const ProductDetailsPage = ({ product }) => {
     };
 
     dispatch(addItemToCart(cartItem));
+    toast.success('You successfully added new item on cart!');
   }
 
   function onRemoveFromCart() {
     try {
       dispatch(deleteItemFromCart({ id: product._id }));
+      toast.success('You successfully removed item from cart!');
     } catch (error) {}
   }
 
   useEffect(() => {
     if (cartItems.length > 0) {
-      setCookie("cart", JSON.stringify(cartItems));
+      setCookie('cart', JSON.stringify(cartItems));
     }
   }, [cartItems]);
 
   if (!product) {
     return (
-      <div style={{ padding: "200px" }}>
+      <div style={{ padding: '200px' }}>
         <Spinner width={200} height={200} />
       </div>
     );
@@ -50,10 +53,10 @@ const ProductDetailsPage = ({ product }) => {
   return (
     <>
       <Head>
-        <title>{product.name}</title>{" "}
-        <meta name="description" content={product.description} />
-        <meta property="og:description" content={product.description} />
-        <meta property="og:title" content={product.name} />
+        <title>{product.name}</title>{' '}
+        <meta name='description' content={product.description} />
+        <meta property='og:description' content={product.description} />
+        <meta property='og:title' content={product.name} />
       </Head>
       <CategoryItemDetails
         data={product}
@@ -79,9 +82,11 @@ export async function getStaticProps(context) {
     };
   }
 
-  const product = await getDocuments(client, { slug: productSlug }, "products");
+  const product = await getDocuments(client, { slug: productSlug }, 'products');
+  console.log('empty');
 
   if (!product || product.length === 0) {
+    console.log('empty');
     return {
       notFound: true,
     };
@@ -103,11 +108,11 @@ export async function getStaticPaths() {
   } catch (error) {
     return {
       paths: [],
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   }
 
-  const products = await getDocuments(client, {}, "products");
+  const products = await getDocuments(client, {}, 'products');
 
   const paths = products
     .filter((item) => item.new)

@@ -1,10 +1,10 @@
-import React from "react";
-import styles from "./category-item-info.module.css";
-import Container from "@/components/container/Container";
-import { animated } from "@react-spring/web";
-import { useAnimations } from "@/lib/animations";
+import React from 'react';
+import styles from './category-item-info.module.css';
+import Container from '@/components/container/Container';
+import { animated } from '@react-spring/web';
+import { useAnimations } from '@/lib/animations';
 const CategoryItemInfo = ({ features, includes }) => {
-  const splitFeatures = features.split("\n").filter((item) => item !== "");
+  const splitFeatures = features.split('\n').filter((item) => item !== '');
   const { fromLeftView, fromRightView } = useAnimations();
   const [fromLeftRef, fromLeftSpring] = fromLeftView;
   const [fromRightRef, fromRightSpring] = fromRightView;
@@ -18,7 +18,7 @@ const CategoryItemInfo = ({ features, includes }) => {
           className={styles.features}
         >
           <h3>FEATURES</h3>
-          <p>
+          <p data-test='product-features'>
             {splitFeatures[0]}
             <br />
             <br />
@@ -31,7 +31,7 @@ const CategoryItemInfo = ({ features, includes }) => {
           className={styles.box}
         >
           <h3>in the box</h3>
-          <ul>
+          <ul data-test='product-in-the-box'>
             {includes.map((includesItem) => (
               <li key={includesItem.item}>
                 <span>{includesItem.quantity}x</span>

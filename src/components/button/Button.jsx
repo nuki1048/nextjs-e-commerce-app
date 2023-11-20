@@ -1,6 +1,6 @@
-import Link from "next/link";
-import React from "react";
-import styles from "./Button.module.css";
+import Link from 'next/link';
+import React from 'react';
+import styles from './Button.module.css';
 const Button = ({
   href,
   children,
@@ -8,6 +8,7 @@ const Button = ({
   style,
   onClick: onClickEvent,
   disabled,
+  dataTest,
 }) => {
   if (href) {
     return (
@@ -15,6 +16,7 @@ const Button = ({
         href={href}
         className={`${styles.button} ${styles[variant]}`}
         style={style}
+        data-test={dataTest}
       >
         {children}
       </Link>
@@ -26,6 +28,7 @@ const Button = ({
       style={style}
       onClick={onClickEvent}
       disabled={disabled}
+      data-test={dataTest}
     >
       {children}
     </button>

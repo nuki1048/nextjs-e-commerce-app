@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
-import Modal from "@/components/modal/Modal";
-import styles from "./ModalCart.module.css";
-import ModalCartItem from "@/components/modalCart/ModalItem";
-import { useDispatch, useSelector } from "react-redux";
-import { clearCart, updateCartTotal } from "@/lib/redux/slices/cartSlice";
-import Button from "../button/Button";
-import { setCookie } from "cookies-next";
-import { animated, useTransition } from "@react-spring/web";
+import React, { useEffect } from 'react';
+import Modal from '@/components/modal/Modal';
+import styles from './ModalCart.module.css';
+import ModalCartItem from '@/components/modalCart/ModalItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, updateCartTotal } from '@/lib/redux/slices/cartSlice';
+import Button from '../button/Button';
+import { setCookie } from 'cookies-next';
+import { animated, useTransition } from '@react-spring/web';
+import { toast } from 'react-toastify';
 const ModalCart = ({ isShow }) => {
   const dispatch = useDispatch();
   const { cartItems, cartTotal } = useSelector((state) => state.cart);
@@ -21,7 +22,9 @@ const ModalCart = ({ isShow }) => {
 
   const onClearCart = () => {
     dispatch(clearCart());
-    setCookie("cart", []);
+    setCookie('cart', []);
+
+    toast.success('You successfully cleaned your cart!');
   };
 
   const transition = useTransition(isShow, {
@@ -48,14 +51,18 @@ const ModalCart = ({ isShow }) => {
       {transition((style, isShow) => (
         <Modal isShow={isShow}>
           <animated.div style={style} className={styles.content}>
-            <div className={styles["cart-info"]}>
+            <div className={styles['cart-info']}>
               <h3 className={styles.counter}>cart ({cartItems.length})</h3>
-              <button className={styles.button} onClick={onClearCart}>
+              <button
+                className={styles.button}
+                onClick={onClearCart}
+                data-test='cart-clear-button'
+              >
                 Remove all
               </button>
             </div>
 
-            <ul className={styles.list}>
+            <ul className={styles.list} data-test='cart-list'>
               {cartItems.map((item) => (
                 <ModalCartItem key={item.id} data={item} />
               ))}
@@ -66,7 +73,7 @@ const ModalCart = ({ isShow }) => {
               <span>$ {cartTotal}</span>
             </div>
 
-            <Button href={"/checkout"}>Checkout</Button>
+            <Button href={'/checkout'}>Checkout</Button>
           </animated.div>
         </Modal>
       ))}

@@ -1,22 +1,23 @@
-import dynamic from "next/dynamic";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, number } from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { clearCart } from "@/lib/redux/slices/cartSlice";
+import dynamic from 'next/dynamic';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { object, string, number } from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { clearCart } from '@/lib/redux/slices/cartSlice';
 
-import Input from "../input/input";
-import Container from "../container/Container";
-import Radio from "../radio/radio";
-import Spinner from "../spinner/spinner";
-import Button from "../button/Button";
-import Image from "next/image";
+import Input from '../input/input';
+import Container from '../container/Container';
+import Radio from '../radio/radio';
+import Spinner from '../spinner/spinner';
+import Button from '../button/Button';
+import Image from 'next/image';
 
-import CartItem from "./cart-item";
-import ThanksfulModal from "../thanksful-modal/thanksful-modal";
-import styles from "./checkout-form.module.css";
+import CartItem from './cart-item';
+import ThanksfulModal from '../thanksful-modal/thanksful-modal';
+import styles from './checkout-form.module.css';
+import { setCookie } from 'cookies-next';
 
 const CheckoutForm = () => {
   const router = useRouter();
@@ -32,13 +33,36 @@ const CheckoutForm = () => {
   const totalWithTaxAndDelivery = totalWithTax + delivery;
 
   const schema = object({
-    email: string().email().required(),
-    name: string().min(1).required(),
-    telephone: number().min(5).required(),
-    address: string().required(),
-    zipCode: number().min(5).required(),
-    country: string().required(),
-    city: string().required(),
+    email: string()
+      .email('Please enter a valid email address.')
+      .required('Email field is required.'),
+    name: string()
+      .required('Name field is required.')
+      .min(2, 'Name field must be at least 2 characters long.'),
+    telephone: number()
+      .transform((value, originalValue) =>
+        originalValue === '' ? null : value
+      )
+      .required('Telephone field is required.')
+      .typeError('Please enter numbers only in this field.')
+      .min(5, 'Telephone field must be at least 5 characters long.'),
+    address: string()
+      .required('Address field is required.')
+      .min(2, 'Address field must be at least 2 characters long.'),
+    zipCode: number()
+      .transform((value, originalValue) =>
+        originalValue === '' ? null : value
+      )
+      .typeError('Please enter numbers only in this field.')
+      .min(1000, 'Zip-code field must be at least 5 characters long.')
+      .max(99999, 'Zip-code field should not exceed 5 characters.')
+      .required('Zip-code field is required.'),
+    country: string()
+      .required('Country field is required.')
+      .min(2, 'Country field must be at least 2 characters long.'),
+    city: string()
+      .required('City field is required.')
+      .min(2, 'City field must be at least 2 characters long.'),
   }).required();
 
   const {
@@ -78,17 +102,18 @@ const CheckoutForm = () => {
       products: [...cartItems],
     };
     try {
-      await fetch("../api/order", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+      await fetch('../api/order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order),
       }).then(async (res) => {
         if (!res.ok) {
           const data = await res.json();
-          throw new Error(data.message || "Something went wrong");
+          throw new Error(data.message || 'Something went wrong');
         }
       });
     } catch (error) {
+      console.log(error);
       setError(error.message);
       setIsPending(false);
       return;
@@ -99,11 +124,13 @@ const CheckoutForm = () => {
     setTimeout(() => {
       setModalShow(false);
       dispatch(clearCart());
-      router.push("/");
+      setCookie('cart', []);
+
+      router.push('/');
     }, 6000);
   };
   return (
-    <section className={styles.section}>
+    <section className={styles.section} data-test='checkout-form'>
       <Container>
         <button onClick={() => router.back()} className={styles.link}>
           Go back
@@ -115,22 +142,25 @@ const CheckoutForm = () => {
               <h4>Billing Details</h4>
               <div className={styles.controls}>
                 <Input
-                  register={register("name", { required: true })}
+                  register={register('name', { required: true })}
                   error={errors.name}
-                  label="Name"
-                  placeholder="Alexei Ward"
+                  label='Name'
+                  placeholder='Alexei Ward'
+                  type='text'
                 />
                 <Input
-                  register={register("email", { required: true })}
+                  register={register('email', { required: true })}
                   error={errors.email}
-                  label="Email Address"
-                  placeholder="alexei@mail.com"
+                  label='Email Address'
+                  placeholder='alexei@mail.com'
+                  type='text'
                 />
                 <Input
-                  register={register("telephone", { required: true })}
+                  register={register('telephone', { required: true })}
                   error={errors.telephone}
-                  label="Phone Number"
-                  placeholder="+1 202-555-0136"
+                  label='Phone Number'
+                  placeholder='+1 202-555-0136'
+                  type='number'
                 />
               </div>
             </div>
@@ -138,28 +168,32 @@ const CheckoutForm = () => {
               <h4>shipping info</h4>
               <div className={styles.controls}>
                 <Input
-                  register={register("address", { required: true })}
+                  register={register('address', { required: true })}
                   error={errors.address}
-                  label="Your Address"
-                  placeholder="1137 Williams Avenue"
+                  label='Your Address'
+                  placeholder='1137 Williams Avenue'
+                  type='text'
                 />
                 <Input
-                  register={register("zipCode", { required: true })}
+                  register={register('zipCode', { required: true })}
                   error={errors.zipCode}
-                  label="ZIP Code"
-                  placeholder="10001"
+                  label='ZIP Code'
+                  placeholder='10001'
+                  type='number'
                 />
                 <Input
-                  register={register("city", { required: true })}
+                  register={register('city', { required: true })}
                   error={errors.city}
-                  label="City"
-                  placeholder="New York"
+                  label='City'
+                  placeholder='New York'
+                  type='text'
                 />
                 <Input
-                  register={register("country", { required: true })}
+                  register={register('country', { required: true })}
                   error={errors.country}
-                  label="Country"
-                  placeholder="United States"
+                  label='Country'
+                  placeholder='United States'
+                  type='text'
                 />
               </div>
             </div>
@@ -168,41 +202,41 @@ const CheckoutForm = () => {
               <div className={styles.method}>
                 <h6>Payment Method</h6>
                 <Radio
-                  register={register("paymentMethod", { required: true })}
+                  register={register('paymentMethod', { required: true })}
                   error={errors.paymentMethod}
-                  label="e-Money"
-                  value="e-Money"
-                  borderShow={watch("paymentMethod") === "e-Money"}
+                  label='e-Money'
+                  value='e-Money'
+                  borderShow={watch('paymentMethod') === 'e-Money'}
                 />
                 <Radio
-                  register={register("paymentMethod", { required: true })}
+                  register={register('paymentMethod', { required: true })}
                   error={errors.paymentMethod}
-                  label="Cash on Delivery"
-                  value="Cash on Delivery"
-                  borderShow={watch("paymentMethod") === "Cash on Delivery"}
+                  label='Cash on Delivery'
+                  value='Cash on Delivery'
+                  borderShow={watch('paymentMethod') === 'Cash on Delivery'}
                 />
               </div>
-              {watch("paymentMethod") === "e-Money" && (
+              {watch('paymentMethod') === 'e-Money' && (
                 <div className={styles.controls}>
                   <Input
-                    register={register("eMoneyNumber", { required: false })}
+                    register={register('eMoneyNumber', { required: false })}
                     error={errors.eMoneyNumber}
-                    label="e-Money Number"
-                    placeholder={"238521993"}
+                    label='e-Money Number'
+                    placeholder={'238521993'}
                   />
                   <Input
-                    register={register("eMoneyPin", { required: false })}
+                    register={register('eMoneyPin', { required: false })}
                     error={errors.eMoneyPin}
-                    label="e-Money PIN"
-                    placeholder="6891"
+                    label='e-Money PIN'
+                    placeholder='6891'
                   />
                 </div>
               )}
-              {watch("paymentMethod") === "Cash on Delivery" && (
+              {watch('paymentMethod') === 'Cash on Delivery' && (
                 <div className={styles.delivery}>
                   <Image
-                    src="assets/checkout/icon-cash-on-delivery.svg"
-                    alt="icon delivery"
+                    src='assets/checkout/icon-cash-on-delivery.svg'
+                    alt='icon delivery'
                     width={30}
                     height={30}
                   />
@@ -218,42 +252,41 @@ const CheckoutForm = () => {
           </div>
           <aside className={styles.aside}>
             <h2>Summary</h2>
-            <ul className={styles["cart-items"]}>
+            <ul className={styles['cart-items']}>
               {cartItems.map((cartItem) => (
                 <CartItem key={cartItem.id} data={cartItem} />
               ))}
             </ul>
             <div className={styles.info}>
-              <div className={styles["info-item"]}>
+              <div className={styles['info-item']}>
                 <span className={styles.name}>TOTAL</span>
                 <span className={styles.price}>
                   $ {totalWithoutTaxesAndDelivery}
                 </span>
               </div>
-              <div className={styles["info-item"]}>
+              <div className={styles['info-item']}>
                 <span className={styles.name}>SHIPPING</span>
                 <span className={styles.price}>$ {delivery}</span>
               </div>
-              <div className={styles["info-item"]}>
+              <div className={styles['info-item']}>
                 <span className={styles.name}>VAT (INCLUDED)</span>
                 <span className={styles.price}>$ {taxes}</span>
               </div>
-              <div className={styles["info-item-total"]}>
+              <div className={styles['info-item-total']}>
                 <span className={styles.name}>GRAND TOTAL</span>
                 <span className={styles.price}>
                   $ {totalWithTaxAndDelivery}
                 </span>
               </div>
             </div>
-            {!isPending && (
-              <Button style={{ marginTop: "32px" }}>CONTINUE & PAY</Button>
-            )}
-            {isPending && (
-              <Button style={{ marginTop: "32px" }} disabled={true}>
-                LOADING
-              </Button>
-            )}
-            {error && <span className="error">{error}</span>}
+
+            <Button
+              style={{ marginTop: '32px' }}
+              dataTest='checkout-form-submit-button'
+            >
+              {isPending ? 'LOADING' : 'CONTINUE & PAY'}
+            </Button>
+            {error && <span className='error'>{error}</span>}
           </aside>
         </form>
       </Container>

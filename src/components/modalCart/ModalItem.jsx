@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import InputNumber from "@/components/inputNumber/InputNumber";
-import Image from "next/image";
-import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
+import InputNumber from '@/components/inputNumber/InputNumber';
+import Image from 'next/image';
+import { useDispatch } from 'react-redux';
 import {
   addItemToCart,
   deleteItemFromCart,
-} from "@/lib/redux/slices/cartSlice";
-import Link from "next/link";
+} from '@/lib/redux/slices/cartSlice';
+import Link from 'next/link';
 
-import styles from "./ModalItem.module.css";
+import styles from './ModalItem.module.css';
 
 const ModalCartItem = ({ data }) => {
   const { image, count, id, name, price, category, slug } = data;
@@ -25,13 +25,13 @@ const ModalCartItem = ({ data }) => {
   }
 
   return (
-    <li className={styles.item}>
+    <li className={styles.item} data-test='cart-product'>
       <div className={styles.image}>
-        <Image src={image} alt="cart item img" width={200} height={200} />
+        <Image src={image} alt='cart item img' width={200} height={200} />
       </div>
       <div className={styles.info}>
         <Link href={`/category/${category}/${slug}`}>
-          <p>{slicesName}</p>
+          <p data-test='cart-product-name'>{slicesName}</p>
         </Link>
         <span>$ {price}</span>
       </div>

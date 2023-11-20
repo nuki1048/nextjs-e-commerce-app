@@ -51,12 +51,32 @@
   color: var(--brand-orange);
 }
 .navbar .cart {
+  position: relative;
   width: 23px;
   height: 23px;
 }
 
 .navbar .cart svg path {
   transition: 0.5s all;
+}
+
+.navbar .cart .count {
+  top: -10px;
+  right: -10px;
+
+  position: absolute;
+  width: 16px;
+  height: 16px;
+
+  background: var(--brand-orange);
+  color: var(--pure-white);
+  border-radius: 50%;
+
+  font-size: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .navbar .cart:hover > svg path {

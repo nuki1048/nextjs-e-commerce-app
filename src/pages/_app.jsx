@@ -1,17 +1,24 @@
-import "@/styles/globals.css";
-import { Provider } from "react-redux";
-import { wrapper } from "@/lib/redux/store";
-import { Manrope } from "next/font/google";
-import Layout from "@/components/layout/Layout";
-import Head from "next/head";
-import dynamic from "next/dynamic";
-const AnimatedCursor = dynamic(() => import("react-animated-cursor"), {
+import { Provider } from 'react-redux';
+import { Manrope } from 'next/font/google';
+import Head from 'next/head';
+import dynamic from 'next/dynamic';
+
+import { wrapper } from '@/lib/redux/store';
+import Layout from '@/components/layout/Layout';
+import { ToastContainer } from 'react-toastify';
+
+const AnimatedCursor = dynamic(() => import('react-animated-cursor'), {
   ssr: false,
 });
+
 const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
 });
+
+import 'react-toastify/dist/ReactToastify.css';
+import '@/styles/globals.css';
+
 export default function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
@@ -19,41 +26,41 @@ export default function MyApp({ Component, ...rest }) {
   return (
     <>
       <Head>
-        <meta charSet="UTF-8" />
+        <meta charSet='UTF-8' />
         <meta
-          name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name='viewport'
+          content='width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'
         />
-        <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+        <meta httpEquiv='X-UA-Compatible' content='ie=edge' />
         <title>Audiophile E-Commerce-Shop </title>
-        <meta name="title" content="Audiophile E-Commerce-Shop " />
+        <meta name='title' content='Audiophile E-Commerce-Shop ' />
         <meta
-          name="description"
+          name='description'
           content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
 
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://metatags.io" />
-        <meta property="og:title" content="Audiophile E-Commerce-Shop " />
+        <meta property='og:type' content='website' />
+        <meta property='og:url' content='https://metatags.io' />
+        <meta property='og:title' content='Audiophile E-Commerce-Shop ' />
         <meta
-          property="og:description"
+          property='og:description'
           content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
         <meta
-          property="og:image"
-          content="https://metatags.io/images/meta-tags.png"
+          property='og:image'
+          content='https://metatags.io/images/meta-tags.png'
         />
 
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://metatags.io" />
-        <meta property="twitter:title" content="Audiophile E-Commerce-Shop " />
+        <meta property='twitter:card' content='summary_large_image' />
+        <meta property='twitter:url' content='https://metatags.io' />
+        <meta property='twitter:title' content='Audiophile E-Commerce-Shop ' />
         <meta
-          property="twitter:description"
+          property='twitter:description'
           content="Audiophile is an all in one stop to fulfill your audio needs.We're a small team of music lovers and sound specialists who are devoted to helping you get the most out of personal audio. Come and visit our demo facility - we’re open 7 days a week."
         />
         <meta
-          property="twitter:image"
-          content="https://metatags.io/images/meta-tags.png"
+          property='twitter:image'
+          content='https://metatags.io/images/meta-tags.png'
         />
 
         <title>Audiophile</title>
@@ -61,7 +68,7 @@ export default function MyApp({ Component, ...rest }) {
       <main className={manrope.className}>
         <Provider store={store}>
           <Layout>
-            <div style={{ zIndex: "10000" }}>
+            <div style={{ zIndex: '10000' }}>
               <AnimatedCursor
                 innerSize={8}
                 outerSize={34}
@@ -70,16 +77,28 @@ export default function MyApp({ Component, ...rest }) {
                 outerAlpha={0}
                 hasBlendMode={true}
                 innerStyle={{
-                  backgroundColor: "var(--brand-orange)",
+                  backgroundColor: 'var(--brand-orange)',
                 }}
                 outerStyle={{
-                  border: "2px solid var(--brand-orange)",
+                  border: '2px solid var(--brand-orange)',
                 }}
               />
             </div>
             <Component {...pageProps} />
           </Layout>
         </Provider>
+        <ToastContainer
+          position='bottom-center'
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme='light'
+        />
       </main>
     </>
   );

@@ -1,8 +1,8 @@
-import { connectToDatabase, getDocuments } from "@/lib/db";
+import { connectToDatabase, getDocuments } from '@/lib/db';
 
 async function handler(req, res) {
-  if (req.method !== "GET") {
-    return res.status(404).json({ message: "Method not supported" });
+  if (req.method !== 'GET') {
+    return res.status(404).json({ message: 'Method not supported' });
   }
 
   const { categoryName } = req.query;
@@ -19,7 +19,7 @@ async function handler(req, res) {
     products = await getDocuments(
       client,
       { category: categoryName },
-      "products"
+      'products'
     );
   } catch (error) {
     client.close();
@@ -28,7 +28,7 @@ async function handler(req, res) {
 
   if (products.length === 0) {
     client.close();
-    return res.status(404).json({ message: "No products found" });
+    return res.status(404).json({ message: 'No products found' });
   }
 
   client.close();
